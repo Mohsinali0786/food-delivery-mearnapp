@@ -1,44 +1,51 @@
 const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
 
-    customer: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+    total_amount: {
+        type: Number,
+        required: true,
     },
-    resturant: {
-        type: Schema.Types.ObjectId,
-        ref: 'Resturant'
+    address: {
+        type: String,
+        required: true,
     },
-    totalAmount: {
-        type: Number
+    status: {
+        type: String,
+        default: "Payment Done",
     },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    products: {
+        type: [
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Food",
+                    required: true,
+                },
+                quantity: { type: Number, default: 1 },
+            },
+        ],
+        required: true,
+    },
+},
+    { timestamps: true }
+);
+// resturant: {
+//     type: Schema.Types.ObjectId,
+//     ref: 'Resturant'
+// },
+// items: {
+//     type: Schema.Types.ObjectId,
+//     ref: 'OrderItem'
+// },
+// payment: {
+//     type: Schema.Types.ObjectId,
+//     ref: 'Payment'
+// },
 
-    orderStatus: {
-        type: String
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    deliveryAddress: {
-        type: Schema.Types.ObjectId,
-        ref: 'Address'
-    },
-    items: {
-        type: Schema.Types.ObjectId,
-        ref: 'OrderItem'
-    },
-    payment: {
-        type: Schema.Types.ObjectId,
-        ref: 'Payment'
-    },
-    totalItem: {
-        type: Number
-    },
-    totalPrice: {
-        type: Number
-    },
-
-})
 module.exports = mongoose.model('Order', orderSchema)
 
