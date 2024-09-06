@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const { createError } = require('../error')
 const { generateToken, getUserIdFromToken } = require('../config/jwtToken')
+const foodCategory = require('../models/foodCategoryModel')
 
 
 const addFoodByAdmin = async (req, res, next) => {
@@ -58,6 +59,40 @@ const addFood = async (req, res, next) => {
         next(err);
     }
 
+}
+const addCategory = async (req,res,next)=>{
+    try {
+        const categoryData = req.body;
+        // if (!Array.isArray(foodData)) {
+        //     return next(
+        //         createError(400, "Invalid request. Expected an array of foods.")
+        //     );
+        // }
+        // let createdfoods = [];
+           const { name } = categoryData;
+            const category = new foodCategory({
+                name,
+            });
+             await category.save();
+            // createdfoods.push(createdCategory);
+        // }
+        return res
+            .status(201)
+            .json({ message: "Products Category added successfully" });
+    } catch (err) {
+        next(err);
+    }
+}
+const getCategory = async (req,res,next)=>{
+    try {
+        let allCategories = await foodCategory.find();
+
+        return res
+            .status(201)
+            .json({ message: "Products Category added successfully" ,allCategories});
+    } catch (err) {
+        next(err);
+    }
 }
 const getAllItems = async (req, res, next) => {
     try {
@@ -287,6 +322,8 @@ module.exports = { addFood, addFoodByAdmin, getAllItems, getFoodById, addToCart,
     addToFavorites,
     getUserFavorites,
     getAllOrders,
-    placeOrder
+    placeOrder,
+    addCategory,
+    getCategory
 
  }

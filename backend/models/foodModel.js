@@ -65,9 +65,12 @@ const FoodSchema = new mongoose.Schema(
             },
             default: { org: 0.0, mrp: 0.0, off: 0 },
         },
+        // category: {
+        //     type: [String],
+        //     default: [],
+        // },
         category: {
-            type: [String],
-            default: [],
+            type: String,
         },
         ingredients: {
             type: [String],

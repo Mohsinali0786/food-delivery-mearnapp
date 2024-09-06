@@ -1,38 +1,120 @@
-.App {
-  text-align: center;
+/* //Common Classes CSS */
+*{
+  padding: 0px;
+  margin: 0px;
+}
+.d-flex{
+  display: flex;
+}
+.d-none{
+  display: none;
+}
+.fw-bold *{
+  font-weight: bold  !important;
+}
+.fw-500{
+  font-weight: 500  !important;
+}
+.text-white{
+  color: white !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.NavBar{
+  /* background-color: grey; */
+}
+.NavBar img{
+  background-color: transparent;
+}
+.serachBox{
+  border: none;
+}
+.serachBox:focus{
+  outline: none;
+}
+.sideBarIcon{
+  position: absolute;
+  left: -50px;
+}
+.sideBarLinks{
+  text-decoration: none !important;
+  color: black !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* //Header CSS */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header{
+  height: 34vw;
+  margin: 30px auto;
+  background: url('assets/food.jpg') no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.headercontent{
+  position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: start;
+  max-width: 50%;
+  bottom: 10%;
+  left: 6vw;
+  gap: 1.5vw;
+  animation: fadeIn 3s;
+}
+.headercontent h2{
+  font-weight: 500;
+  font-size: max(4.5vw,20px);
+}
+.headercontent p{
+  font-size: 1.5vw
+}
+.headercontent button{
+  color: grey !important;
+  font-weight: 500;
+  padding: 1vw 2.3vw;
+  background-color: white;
+  border-radius: 50px;
+  font-size: max(1vw,12px);
 }
 
-.App-link {
-  color: #61dafb;
+.ConatinerAuthBtn {
+  display: flex;
+  gap: 10px;
+}
+.authBtnCss {
+  background-color: red !important;
+  color: whitesmoke !important;
+  border-radius: 10px !important;
+  font-weight: 500 !important;
+}
+.authBtnCss:hover {
+  background-color: whitesmoke !important;
+  color: red !important;
+}
+@media screen and (max-width: 768px) {
+  .ConatinerAuthBtn {
+    display: none;
+  }
+  .authBtnCss {
+    margin: 5px 0px !important;
+    /* width: 100 !important; */
+  }
+  .mbAuthBtnCss {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .mbAuthBtnCss {
+    display: none;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+  100%{
+    opacity: 1;
   }
 }
+
+

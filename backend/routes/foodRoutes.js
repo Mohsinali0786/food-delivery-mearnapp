@@ -1,6 +1,6 @@
 const express =require('express')
 const router = express.Router()
-const {addFoodByAdmin ,addFood,getAllItems ,getFoodById, addToCart,removeFromCart,getAllCartItems,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder} = require('..//controllers/foodController')
+const {addFoodByAdmin ,addFood,getAllItems ,getFoodById, addToCart,removeFromCart,getAllCartItems,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory} = require('..//controllers/foodController')
 const {verifyToken} = require('../middleWare/verifyUser')
 router.post('/addFood', addFood)
 router.post('/addFoodByAdmin', addFoodByAdmin)
@@ -19,6 +19,10 @@ router.patch("/favorite", verifyToken, removeFromFavorites);
 
 router.post("/order", verifyToken, placeOrder);
 router.get("/order", verifyToken, getAllOrders);
+
+router.post("/add-category", addCategory);
+router.get("/get-category", getCategory);
+
 
 
 

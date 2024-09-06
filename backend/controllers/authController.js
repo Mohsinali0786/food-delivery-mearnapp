@@ -50,13 +50,48 @@ const UserLogin = async (req, res, next) => {
     // if (userId = user._id) {
     //   return res.status(200).json({ user, user ,token:loginTokenId});
     // }
-      return res.status(200).json({ user, user ,token:loginTokenId});
+    return res.status(200).json({ user, user, token: loginTokenId });
 
   } catch (err) {
     next(err);
   }
 };
+const UserUpdate = async (req, res, next) => {
+  try {
+    const { email, password, role } = req.body;
 
+    //Check for existing user
+    console.log(email, 'roleeeeeeee')
+    const user = await User.findOneAndUpdate({ email: email }, { role: role }).exec();
+    if (!user) {
+      return next(createError(409, "User not found.", res));
+    }
+
+    return res.status(200).json({ success: true, message: 'Updated Successfully' });
+
+  } catch (err) {
+    next(err);
+  }
+};
+const UserDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (id) {
+      
+      console.log('iddd', id  , req.params)
+      const user = await User.findByIdAndDelete(id);
+      if (!user) {
+        return next(createError(409, "User not found.", res));
+      }
+
+      return res.status(200).json({ success: true, message: 'Deleted  Successfully' });
+
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+};
 const getAllUser = async (req, res, next) => {
   try {
 
@@ -76,4 +111,4 @@ const getAllUser = async (req, res, next) => {
 
 //Cart
 
-module.exports = { Signup, UserLogin ,getAllUser  }
+module.exports = { Signup, UserLogin, getAllUser, UserUpdate, UserDelete }

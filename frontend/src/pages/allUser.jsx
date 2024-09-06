@@ -1,0 +1,26 @@
+import { StickyHeadTable } from "../component";
+import { useEffect, useState } from "react";
+import { getRequest } from "../utils/service";
+export default function AllUser() {
+  const [allUsers, setAllUsers] = useState([]);
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  const getAllUsers = async () => {
+    const allUser = await getRequest("/getAllUsers");
+  console.log('allUsers',allUser);
+    if (allUser && allUser.user && allUser.user.length > 0) {
+  console.log('allUsers');
+      setAllUsers(allUser.user);
+    }
+    // console.log(data);
+  };
+  console.log(allUsers);
+
+  return (
+    <>
+      <StickyHeadTable data={allUsers}/>
+    </>
+  );
+}
