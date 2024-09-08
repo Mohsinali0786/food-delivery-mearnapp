@@ -13,7 +13,7 @@ const FoodItem = ({ key, id, name }) => {
 
   return (
     <div className="food-item">
-      <di className="food-item-image-container">
+      <div className="food-item-image-container">
         <img src="" alt="" className="food-item-img" />
         {!cartItems[id] ? 
             <AddIcon onClick={()=>addToCart(id)} className="add"/> : 
@@ -32,7 +32,7 @@ const FoodItem = ({ key, id, name }) => {
           <p className="food-item-description">description</p>
           <p className="food-item-price">Price</p>
         </div>
-      </di>
+      </div>
     </div>
   );
 };

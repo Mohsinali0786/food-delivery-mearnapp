@@ -1,10 +1,11 @@
 import Home from './Home'
 import Authentication from './Authentication'
-import Cart from './Cart'
 import Favourites from './Favourites'
 import FoodDetails from './FoodDetails'
 import FoodListing from './FoodListing'
 import AllUser from './allUser'
+import Cart from './cart/Cart'
+import PlaceOrder from './cart/order/order'
 
 
 export{
@@ -14,6 +15,7 @@ export{
     Favourites,
     FoodDetails,
     FoodListing,
-    AllUser
+    AllUser,
+    PlaceOrder
 }
 

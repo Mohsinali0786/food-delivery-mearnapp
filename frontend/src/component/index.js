@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import Navbar from './navbar/Navbar'
 import StickyHeadTable from './table'
 import BasicSelect from './select'
 import Header from './header'

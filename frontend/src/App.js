@@ -10,7 +10,8 @@ import {
   Favourites,
   FoodDetails,
   FoodListing,
-  AllUser
+  AllUser,
+  PlaceOrder
 } from './pages';
 import { useState } from 'react';
 const Container = styled.div``;
@@ -38,6 +39,9 @@ function App() {
             <Route path="/dishes"  element={<FoodListing />} />
             <Route path="/all-users"  element={<AllUser />} />
             <Route path="/all-foods"  element={<FoodDisplay />} />
+            <Route path="/cart-items"  element={<Cart />} />
+            <Route path="/order"  element={<PlaceOrder />} />
+
 
           </Routes>
           {/* {openAuth && (

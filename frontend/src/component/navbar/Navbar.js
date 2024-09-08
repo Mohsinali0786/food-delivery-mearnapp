@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR, NavLink } from "react-router-dom";
 // import LogoImg from "../utils/Images/Logo.png";
+import "./Navbar.css"
 import {
   FavoriteBorder,
   MenuRounded,
@@ -12,8 +13,9 @@ import {
 import { Avatar, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 // import { logout } from "../redux/reducers/UserSlice";
-import LogoImg from '../utils/images/Logo.png'
-import TemporaryDrawer from "./drawer";
+import LogoImg from '../../utils/images/Logo.png'
+import TemporaryDrawer from "../drawer";
+import { StoreContext } from "../../context/storeContext";
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
   height: 80px;
@@ -147,7 +149,7 @@ const TextButton = styled.span`
 
 export default function Navbar({ setOpenAuth, openAuth, currentUser ,setShowLogin }) {
   const [isOpen, setIsOpen] = useState(false);
-
+const {getCartTotalAmount} = useContext(StoreContext)
   return (
     <Nav>
       <NavContainer>
@@ -222,10 +224,11 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser ,setShowLogi
         <Navlink to="/favorite">
           <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
         </Navlink>
-        <Navlink to="/cart">
+        <Navlink to="/cart-items" className="shopping-Cart">
           <ShoppingCartOutlined
             sx={{ color: "inherit", fontSize: "28px" }}
           />
+          <div className={getCartTotalAmount() == 0 ? "" : "dot"}></div>
         </Navlink>
         <MobileIcon onClick={() => setIsOpen(!isOpen)}>
           <MenuRounded style={{ color: "inherit" }} />

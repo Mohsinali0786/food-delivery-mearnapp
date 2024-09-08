@@ -18,6 +18,15 @@
 .text-white{
   color: white !important;
 }
+.pointer{
+  cursor: pointer;
+}
+.text-center{
+  text-align: center;
+}
+.p-2{
+  padding: 2px;
+}
 
 .NavBar{
   /* background-color: grey; */
