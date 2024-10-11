@@ -12,8 +12,9 @@ import { Button } from "@mui/material";
 import { deleteRequest, patchRequest } from "../utils/service";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Avatar from '@mui/material/Avatar';
-import {AlertBox} from '../utils/alertBoxMethod' 
+import Avatar from "@mui/material/Avatar";
+import { AlertBox } from "../utils/alertBoxMethod";
+import {CircularProgress} from "@mui/material";
 const columns = [
   // { id: "_", label: "Image", minWidth: 170 },
   { id: "_id", label: "Id", minWidth: 170 },
@@ -87,105 +88,122 @@ export default function StickyHeadTable({ data }) {
     console.log(_id, "iddddddd");
     const res = await deleteRequest(`/deleteUser/${_id}`);
     if (res.success) {
-      AlertBox('Hello','asasdsd','success','Ok')
+      AlertBox("Hello", "asasdsd", "success", "Ok");
       console.log("res Ifff", row);
     }
   };
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <>
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                </>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <>
-                          {console.log("edit", row, row.editable)}
-                          
-                          <TableCell
-                            key={column.id}
-                            align={column.align}
-                            sx={{ maxWidth: "100px" }}
-                          >
-                            {/* {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value} */}
-                            {column.label == "Role" && row.editable == true ? (
-                              <EditData
-                                userSelected={row}
-                                defaultVal={row.role}
-                                setEditable={setEditable}
-                                editable={editable}
-                              />
-                            ) : (
-                              <div className="">
-                                {column.label == "Id" ?
-                                <Avatar
-                                alt="Remy Sharp"
-                                src="/static/images/avatar/1.jpg"
-                                /> : null}<span>{value}</span>
-                                {column.label == "Role" ? (
-                                  <EditIcon
-                                    onClick={() => {
-                                      console.log("runnn", editable);
-                                      setEditable(!editable);
-                                      row.editable = !editable;
-                                    }}
+    <div>
+      {data && data.length > 0 ? (
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <>
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    </>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.code}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <>
+                              {console.log("edit", row, row.editable)}
+
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                                sx={{ maxWidth: "100px" }}
+                              >
+                                {/* {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value} */}
+                                {column.label == "Role" &&
+                                row.editable == true ? (
+                                  <EditData
+                                    userSelected={row}
+                                    defaultVal={row.role}
+                                    setEditable={setEditable}
+                                    editable={editable}
                                   />
-                                ) : null}
-                              </div>
-                            )}
-                            {/* <input /> */}
-                          </TableCell>
-                        </>
-                      );
-                    })}
-                    <TableCell>
-                      <Button>
-                        <DeleteIcon
-                          onClick={() => deleteUser(row)}
-                          sx={{ color: "red" }}
-                        />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {data && data.length > 5 ? (
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      ) : null}
-    </Paper>
+                                ) : (
+                                  <div className="">
+                                    {column.label == "Id" ? (
+                                      <Avatar
+                                        alt="Remy Sharp"
+                                        src="/static/images/avatar/1.jpg"
+                                      />
+                                    ) : null}
+                                    <span>{value}</span>
+                                    {column.label == "Role" ? (
+                                      <EditIcon
+                                        onClick={() => {
+                                          console.log("runnn", editable);
+                                          setEditable(!editable);
+                                          row.editable = !editable;
+                                        }}
+                                      />
+                                    ) : null}
+                                  </div>
+                                )}
+                                {/* <input /> */}
+                              </TableCell>
+                            </>
+                          );
+                        })}
+                        <TableCell>
+                          <Button>
+                            <DeleteIcon
+                              onClick={() => deleteUser(row)}
+                              sx={{ color: "red" }}
+                            />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {data && data.length > 5 ? (
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          ) : null}
+        </Paper>
+      ) : (
+        <div className="dataLoader">
+          <CircularProgress size="30px" />
+        </div>
+
+      )}
+    </div>
   );
 }
 export const EditData = ({

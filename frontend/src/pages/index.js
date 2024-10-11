@@ -5,8 +5,9 @@ import FoodDetails from './FoodDetails'
 import FoodListing from './FoodListing'
 import AllUser from './allUser'
 import Cart from './cart/Cart'
-import PlaceOrder from './cart/order/order'
-
+import PlaceOrder from './order/order'
+import VerifyOrder from './verify/verify'
+import MyOrders from './myOrders/myOrders'
 
 export{
     Home,
@@ -16,6 +17,8 @@ export{
     FoodDetails,
     FoodListing,
     AllUser,
-    PlaceOrder
+    PlaceOrder,
+    VerifyOrder,
+    MyOrders
 }
 

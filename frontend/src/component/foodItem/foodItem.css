@@ -1,6 +1,6 @@
 .food-item {
   width: 100%;
-  margin: auto;
+  /* margin: auto; */
   border-radius: 15px;
   box-shadow: 0px 0px 10px #00000015;
   transition: 0.3s;
@@ -9,6 +9,7 @@
 .food-item-img {
   width: 100%;
   border-radius: 15px 15px 0px 0px;
+  height: 150px;
 }
 .food-item-info {
   padding: 20px;
@@ -31,7 +32,10 @@
   color: tomato;
   font-size: 22px;
   font-weight: 500;
-  margin: 10px 0px;
+  /* margin: 10px 0px; */
+}
+.item-price-margin{
+    margin: 22px 0px;
 }
 .addItemsIcon{
     color: white;
@@ -59,7 +63,12 @@
     padding: 6px;
     background-color: white;
 }
-
+.discount{
+  border-radius: 100%;
+  background-color: red;
+  padding: 5px;
+  color: white;
+}
 
 
 

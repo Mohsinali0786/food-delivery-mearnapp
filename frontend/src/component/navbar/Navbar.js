@@ -1,6 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR, NavLink } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { useNavigate } from "react-router-dom";
 // import LogoImg from "../utils/Images/Logo.png";
 import "./Navbar.css"
 import {
@@ -15,7 +18,9 @@ import { useDispatch } from "react-redux";
 // import { logout } from "../redux/reducers/UserSlice";
 import LogoImg from '../../utils/images/Logo.png'
 import TemporaryDrawer from "../drawer";
+import PeopleIcon from '@mui/icons-material/People';
 import { StoreContext } from "../../context/storeContext";
+import { Link } from "react-router-dom";
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
   height: 80px;
@@ -147,9 +152,11 @@ const TextButton = styled.span`
   }
 `;
 
-export default function Navbar({ setOpenAuth, openAuth, currentUser ,setShowLogin }) {
+export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogin }) {
   const [isOpen, setIsOpen] = useState(false);
-const {getCartTotalAmount} = useContext(StoreContext)
+  const { getCartTotalAmount, token, setToken, loginData } = useContext(StoreContext)
+  const Navigate = useNavigate()
+
   return (
     <Nav>
       <NavContainer>
@@ -181,6 +188,11 @@ const {getCartTotalAmount} = useContext(StoreContext)
           <Navlink to="/dishes">Dishes</Navlink>
           <Navlink to="/orders">Orders</Navlink>
           <Navlink to="/contact">Contact</Navlink>
+          {loginData?.role == "SUPERADMIN_ROLE" ?
+            <Navlink onClick={() => window.location.href = 'http://localhost:5173'}>Dashboard</Navlink>
+            :
+            null
+          }
         </NavItems>
 
         {isOpen && (
@@ -235,7 +247,30 @@ const {getCartTotalAmount} = useContext(StoreContext)
         </MobileIcon>
         <div className="ConatinerAuthBtn">
           {/* <Button className="authBtnCss" onClick={()=>setShowLogin(true)}>Sign In</Button> */}
-          <Button className="authBtnCss" onClick={()=>setShowLogin(true)}>Sign Up</Button>
+          {
+            !token ?
+              <Button className="authBtnCss" onClick={() => setShowLogin(true)}>Sign Up</Button>
+              :
+              <div className="navbar-profile">
+                {/* <img /> */}
+                <PeopleIcon />
+                <ul className="navbar-profile-dropdown">
+                  <li >
+                    <ShoppingBagIcon className="text-tomato" />
+                    {/* <p className="text-black">Order</p> */}
+                    <Link to="/myOrders" className="text-black">Order</Link>
+                  </li>
+                  <hr />
+                  <li onClick={() => { localStorage.removeItem("token"); setToken(''); Navigate("/") }}>
+                    {/* <Button > */}
+                    <LogoutIcon className="text-tomato" />
+                    <p className="text-black">Logout</p>
+                    {/* </Button> */}
+                  </li>
+                </ul>
+              </div>
+
+          }
         </div>
 
       </ButtonContainer>

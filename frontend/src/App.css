@@ -9,6 +9,15 @@
 .d-none{
   display: none;
 }
+.justify-content-between{
+  justify-content: space-between;
+}
+.align-center{
+  align-items: center;
+}
+.flex-column{
+  flex-direction: column;
+}
 .fw-bold *{
   font-weight: bold  !important;
 }
@@ -18,14 +27,30 @@
 .text-white{
   color: white !important;
 }
+.text-tomato{
+  color: tomato !important;
+}
+.text-black{
+  color: black !important;
+}
 .pointer{
   cursor: pointer;
 }
 .text-center{
   text-align: center;
 }
+.line-through{
+  text-decoration: line-through
+}
+.mp-0{
+  margin: 0px;
+  padding: 0px;
+} 
 .p-2{
   padding: 2px;
+}
+.fs-11{
+  font-size: 11px;
 }
 
 .NavBar{
@@ -98,6 +123,14 @@
 .authBtnCss:hover {
   background-color: whitesmoke !important;
   color: red !important;
+}
+
+.dataLoader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 360px);
+  width: 100%;
 }
 @media screen and (max-width: 768px) {
   .ConatinerAuthBtn {

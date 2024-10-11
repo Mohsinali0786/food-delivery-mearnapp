@@ -66,7 +66,7 @@ export const patchRequest = async (url,body) => {
   let fullUrl = baseUrl + url
   const response = await axios.patch(fullUrl,body)
     .then(response => {
-      console.log(response);
+      console.log(response,'response');
 
       if(response.data)
         return response.data;
