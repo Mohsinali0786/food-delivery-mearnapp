@@ -11,7 +11,7 @@ app.use(cors({
   credentials:true
 }));
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://mm-traders-app-frontend.vercel.app'); // Replace '*' with your allowed origin
+  res.setHeader('Access-Control-Allow-Origin', 'https://food-delivery-f-mearnapp.vercel.app'); // Replace '*' with your allowed origin
   res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept',
