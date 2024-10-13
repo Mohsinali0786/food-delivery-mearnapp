@@ -53,17 +53,17 @@ app.get("/", async (req, res) => {
     //     console.error("failed to connect with mongo");
     //     console.error(err);
     //   });
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then((client) => {
-      console.log('Database Connected')
     
-    }).catch((err) => {
-      console.log('Err===>', err)
-    });
   };
-
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then((client) => {
+    console.log('Database Connected')
+  
+  }).catch((err) => {
+    console.log('Err===>', err)
+  });
   const startServer = async () => {
     try {
-      connectDB();
+      // connectDB();
       app.listen(process.env.PORT, () => console.log("Server started on port" , process.env.PORT));
     } catch (error) {
       console.log(error);
