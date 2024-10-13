@@ -10,7 +10,7 @@ router.post('/signIn', UserLogin)
 // GET Routes
 router.get('/getAllUsers', getAllUser)
 
-router.patch('/updateUser',UserUpdate)
+router.post('/updateUser',UserUpdate)
 
 router.delete('/deleteUser/:id',UserDelete)
 
