@@ -106,16 +106,16 @@ const UserDelete = async (req, res, next) => {
   }
 };
 const getAllUser = async (req, res, next) => {
-  try {
+  // try {
 
-    const user = await User.find().exec();
-    if (!user) {
-      return next(createError(409, "User not found.", res));
-    }
-    res.status(200).json({ user, user });
-  } catch (err) {
-    next(err);
-  }
+  //   const user = await User.find().exec();
+  //   if (!user) {
+  //     return next(createError(409, "User not found.", res));
+  //   }
+  //   res.status(200).json({ user, user });
+  // } catch (err) {
+  //   next(err);
+  // }
 };
 
 
