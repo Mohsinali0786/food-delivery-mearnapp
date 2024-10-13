@@ -8,7 +8,7 @@ export default function ExploreMenu({category,setCategory}) {
   const [menuList, setMenuList] = useState([]);
   const {allCategory} = useContext(StoreContext)
   useEffect(() => {
-    getAllFoods();
+    // getAllFoods();
   }, []);
   const getAllFoods = async (url) => {
     const allFood = await getRequest("/getAllItems");

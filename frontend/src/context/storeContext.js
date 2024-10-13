@@ -11,7 +11,7 @@ export const StoreContextProvider = (props) => {
     const [token, setToken] = useState('')
     useEffect(() => {
         async function loadData() {
-            await getAllFoods()
+            // await getAllFoods()
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
                 await loadCartData(localStorage.getItem("token"))
