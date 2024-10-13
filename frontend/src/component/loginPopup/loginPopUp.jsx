@@ -28,7 +28,7 @@ export default function LoginPopUp({ setShowLogin }) {
       // console.log(res.user.cart,'res.user.cart')
       // setCartItems(res.user.cart)
     }
-    if (res.message) {
+    if (res && res.message) {
       alert(res.message);
     }
   };
