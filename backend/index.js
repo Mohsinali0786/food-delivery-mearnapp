@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 //     });
 //   });
 
-app.use("/api",userRoutes)
+// app.use("/api",userRoutes)
 // app.use("/images",express.static('uploads'))
 app.get("/", async (req, res) => {
     res.status(200).json({
