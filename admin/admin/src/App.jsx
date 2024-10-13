@@ -4,7 +4,8 @@ import { AddItems, AllUser, ListItems, Order } from "./pages";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
-  const url = "http://localhost:5001/api"
+  // const url = "http://localhost:5001/api"
+  const url =   "https://food-delivery-b-mearnapp.vercel.app/api"
   return (
     <div>
       <ToastContainer autoClose={300} hideProgressBar={true}/>

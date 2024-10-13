@@ -44,7 +44,11 @@ export default function ListItems({url}) {
         list.map((item, index) => {
           return (
             <div className="list-table-format">
-              <img src={`http://localhost:5001/images/${item?.image}`} alt="" />
+              {/* <img src={`http://localhost:5001/images/${item?.image}`} alt="" /> */}
+              <img src={`https://food-delivery-b-mearnapp.vercel.app/api/images/${item?.image}`} alt="" />
+
+             
+
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>{item.price?.mrp}</p>
