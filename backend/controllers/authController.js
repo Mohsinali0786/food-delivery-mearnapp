@@ -39,35 +39,35 @@ const Signup = async (req, res, next) => {
 }
 
 const UserLogin = async (req, res, next) => {
-  // try {
-  //   const { email, password, token } = req.body;
+  try {
+    const { email, password, token } = req.body;
 
-  //   //Check for existing user
-  //   const user = await User.findOne({ email: email }).exec();
-  //   if (!user) {
-  //     // return next(createError(409, "User not found.", res));
-  //     return res.json({success:false , message:"User not found."});
-  //   }
+    //Check for existing user
+    const user = await User.findOne({ email: email }).exec();
+    if (!user) {
+      // return next(createError(409, "User not found.", res));
+      return res.json({success:false , message:"User not found."});
+    }
 
-  //   const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
-  //   if (!isPasswordCorrect) {
-  //     // return next(createError(403, "Incorrect password", res));
-  //     return res.json({success:false , message:"Incorrect password"});
+    const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
+    if (!isPasswordCorrect) {
+      // return next(createError(403, "Incorrect password", res));
+      return res.json({success:false , message:"Incorrect password"});
 
-  //   }
+    }
 
 
-  //   let loginTokenId = generateToken(user._id)
-  //   // let userId = getUserIdFromToken(token)
-  //   // console.log(userId)
-  //   // if (userId = user._id) {
-  //   //   return res.status(200).json({ user, user ,token:loginTokenId});
-  //   // }
-  //   return res.status(200).json({success:true, user,  token: loginTokenId ,message:'Login In Successfully'});
+    let loginTokenId = generateToken(user._id)
+    // let userId = getUserIdFromToken(token)
+    // console.log(userId)
+    // if (userId = user._id) {
+    //   return res.status(200).json({ user, user ,token:loginTokenId});
+    // }
+    return res.status(200).json({success:true, user,  token: loginTokenId ,message:'Login In Successfully'});
 
-  // } catch (err) {
-  //   next(err);
-  // }
+  } catch (err) {
+    next(err);
+  }
 };
 const UserUpdate = async (req, res, next) => {
   // try {
