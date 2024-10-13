@@ -5,7 +5,11 @@ const mongoose = require("mongoose");
 const userRoutes = require('./routes/index')
 require('dotenv').config();
 const app = express()
-app.use(cors());
+app.use(cors({
+  origin:"https://food-delivery-f-mearnapp.vercel.app",
+  methods:["POST","GET","PATCH","DELETE"],
+  credentials:true
+}));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); 
 
