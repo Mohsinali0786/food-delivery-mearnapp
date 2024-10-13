@@ -3,8 +3,8 @@ const router = express.Router()
 // const { body, validationResult } = require('express-validator');
 const {Signup,UserLogin,getAllUser,UserUpdate, UserDelete} = require('..//controllers/authController')
 
-router.post('/signUp', Signup)
-router.post('/signIn', UserLogin)
+router.patch('/signUp', Signup)
+router.patch('/signIn', UserLogin)
 
 
 // GET Routes

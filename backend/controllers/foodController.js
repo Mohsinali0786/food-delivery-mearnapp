@@ -2,6 +2,7 @@ const Food = require('../models/foodModel')
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const fs = require('fs')
 const mongoose = require('mongoose')
 const { createError } = require('../error')
 const { generateToken, getUserIdFromToken } = require('../config/jwtToken')
@@ -33,34 +34,60 @@ const addFood = async (req, res, next) => {
 
     try {
         const foodData = req.body;
-        if (!Array.isArray(foodData)) {
-            return next(
-                createError(400, "Invalid request. Expected an array of foods.")
-            );
-        }
-        let createdfoods = [];
-        for (const foodInfo of foodData) {
-            const { name, desc, img, price, ingredients, category } = foodInfo;
-            const product = new Food({
-                name,
-                desc,
-                img,
-                price,
-                ingredients,
-                category,
-            });
-            const createdFoods = await product.save();
-            createdfoods.push(createdFoods);
-        }
-        return res
-            .status(201)
-            .json({ message: "Products added successfully", createdfoods });
+        const file_name = req.file.filename
+        // console.log('fileName', file_name)
+        // console.log('req.body', foodData)
+        const { name, description, price, category, userId } = foodData;
+        // price = JSON.parse(price)
+        console.log('price', JSON.parse(req.body.price))
+
+        const product = new Food({
+            name,
+            description,
+            image: file_name,
+            price:JSON.parse(req.body.price),
+            category,
+            user: userId
+        });
+        await product.save();
+        res.json({
+            success: true,
+            message: "Food Added successfully"
+        })
+        //     createdfoods.push(createdFoods);
+        // if (!Array.isArray(foodData)) {
+        //     return next(
+        //         createError(400, "Invalid request. Expected an array of foods.")
+        //     );
+        // }
+        // let createdfoods = [];
+        // for (const foodInfo of foodData) {
+        //     const { name, desc, img, price, ingredients, category } = foodInfo;
+        //     const product = new Food({
+        //         name,
+        //         desc,
+        //         img,
+        //         price,
+        //         ingredients,
+        //         category,
+        //     });
+        //     const createdFoods = await product.save();
+        //     createdfoods.push(createdFoods);
+        // }
+        // return res
+        //     .status(201)
+        //     .json({ message: "Products added successfully", createdfoods });
     } catch (err) {
-        next(err);
+        // next(err);
+        res.json({
+            success: false,
+            message: "Error",
+            error: err
+        })
     }
 
 }
-const addCategory = async (req,res,next)=>{
+const addCategory = async (req, res, next) => {
     try {
         const categoryData = req.body;
         // if (!Array.isArray(foodData)) {
@@ -69,12 +96,12 @@ const addCategory = async (req,res,next)=>{
         //     );
         // }
         // let createdfoods = [];
-           const { name } = categoryData;
-            const category = new foodCategory({
-                name,
-            });
-             await category.save();
-            // createdfoods.push(createdCategory);
+        const { name } = categoryData;
+        const category = new foodCategory({
+            name,
+        });
+        await category.save();
+        // createdfoods.push(createdCategory);
         // }
         return res
             .status(201)
@@ -83,13 +110,13 @@ const addCategory = async (req,res,next)=>{
         next(err);
     }
 }
-const getCategory = async (req,res,next)=>{
+const getCategory = async (req, res, next) => {
     try {
         let allCategories = await foodCategory.find();
 
         return res
             .status(201)
-            .json({ message: "Products Category added successfully" ,allCategories});
+            .json({ message: "Products Category added successfully", allCategories });
     } catch (err) {
         next(err);
     }
@@ -125,12 +152,23 @@ const getAllItems = async (req, res, next) => {
         //   ];
         // }
         // const foodList = await Food.find(filter);
-        return res.status(201).json({ allItems });
+        console.log('allItems', allItems)
+        return res.status(201).json({ success: true, allItems });
     } catch (err) {
         next(err);
     }
 }
 
+const removeItem = async (req, res, next) => {
+    try {
+        let item = await Food.findById(req.body.id);
+        console.log(item, 'item ===>')
+        await Food.findByIdAndDelete(req.body.id)
+        return res.status(201).json({ success: true, message: 'Food Removed' });
+    } catch (err) {
+        next(err);
+    }
+}
 const getFoodById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -147,183 +185,107 @@ const getFoodById = async (req, res, next) => {
     }
 }
 
-const addToCart = async (req, res, next) => {
+
+const placeOrder = async (req, res, next) => {
     try {
-        const { productId, quantity } = req.body;
-        const userJWT = req.user;
-        //   console.log('userJWT',userJWT)
-        const user = await User.findById(userJWT);
-        //   console.log('userJWT',user)
+        const { products, address, totalAmount } = req.body;
+        const userJWTId = req.user;
+        const user = await User.findById(userJWTId);
 
-        const existingCartItemIndex = user.cart.findIndex((item) =>
-            item.product.equals(productId)
-        );
-        console.log('existingCartItemIndex', existingCartItemIndex)
+        const order = new Orders({
+            products,
+            user: user._id,
+            total_amount: totalAmount,
+            address,
+        });
 
-        if (existingCartItemIndex !== -1) {
-            // Product is already in the cart, update the quantity
-            user.cart[existingCartItemIndex].quantity += quantity ? quantity : 1;
-        } else {
-            // Product is not in the cart, add it
-            user.cart.push({ product: productId, quantity });
-        }
+        await order.save();
+        user.cart = [];
         await user.save();
         return res
             .status(200)
-            .json({ message: "Product added to cart successfully", user });
+            .json({ message: "Order placed successfully", order });
     } catch (err) {
         next(err);
     }
 };
 
-const removeFromCart = async (req, res, next) => {
+const getAllOrders = async (req, res, next) => {
     try {
-        const { productId, quantity } = req.body;
-        console.log('Remoie')
+        const { productId } = req.body;
         const userJWTId = req.user;
         const user = await User.findById(userJWTId);
-        if (!user) {
-            return next(createError(404, "User not found", res));
-        }
-        console.log('user.cart', user.cart)
-        const productIndex = user.cart.findIndex((item) =>
-            item.product.equals(productId)
-        );
-        console.log('productIndex', productIndex)
-
-        if (productIndex !== -1) {
-            if (quantity && quantity > 0) {
-                user.cart[productIndex].quantity -= quantity;
-                if (user.cart[productIndex].quantity <= 0) {
-                    user.cart.splice(productIndex, 1); // Remove the product from the cart
-                }
-            } else {
-                user.cart.splice(productIndex, 1);
-            }
-
+        if (!user.favourites.includes(productId)) {
+            user.favourites.push(productId);
             await user.save();
-
-            return res
-                .status(200)
-                .json({ message: "Product quantity updated in cart", user });
-        } else {
-            return next(createError(404, "Product not found in the user's cart", res));
         }
+        return res
+            .status(200)
+            .json({ message: "Product added to favorites successfully", user });
     } catch (err) {
         next(err);
     }
 };
-const getAllCartItems = async (req, res, next) => {
+
+//Favorites
+
+const removeFromFavorites = async (req, res, next) => {
     try {
-        const userJWTId = req.user;
-        const user = await User.findById(userJWTId).populate({
-            path: "cart.product",
-            model: "Food",
-        });
-        const cartItems = user.cart;
-        return res.status(200).json(cartItems);
+        const { productId } = req.body;
+        const userJWT = req.user;
+        const user = await User.findById(userJWT.id);
+        user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
+        await user.save();
+
+        return res
+            .status(200)
+            .json({ message: "Product removed from favorites successfully", user });
     } catch (err) {
         next(err);
     }
 };
- const placeOrder = async (req, res, next) => {
+
+const addToFavorites = async (req, res, next) => {
     try {
-      const { products, address, totalAmount } = req.body;
-      const userJWTId = req.user;
-      const user = await User.findById(userJWTId);
-  
-      const order = new Orders({
-        products,
-        user: user._id,
-        total_amount: totalAmount,
-        address,
-      });
-  
-      await order.save();
-      user.cart = [];
-      await user.save();
-      return res
-        .status(200)
-        .json({ message: "Order placed successfully", order });
+        const { productId } = req.body;
+        const userJWT = req.user;
+        const user = await User.findById(userJWT.id);
+
+        if (!user.favourites.includes(productId)) {
+            user.favourites.push(productId);
+            await user.save();
+        }
+
+        return res
+            .status(200)
+            .json({ message: "Product added to favorites successfully", user });
     } catch (err) {
-      next(err);
+        next(err);
     }
-  };
-  
-   const getAllOrders = async (req, res, next) => {
+};
+
+const getUserFavorites = async (req, res, next) => {
     try {
-      const { productId } = req.body;
-      const userJWTId = req.user;
-      const user = await User.findById(userJWTId);
-      if (!user.favourites.includes(productId)) {
-        user.favourites.push(productId);
-        await user.save();
-      }
-      return res
-        .status(200)
-        .json({ message: "Product added to favorites successfully", user });
+        const userId = req.user.id;
+        const user = await User.findById(userId).populate("favourites").exec();
+        if (!user) {
+            return next(createError(404, "User not found"));
+        }
+        const favoriteProducts = user.favourites;
+        return res.status(200).json(favoriteProducts);
     } catch (err) {
-      next(err);
+        next(err);
     }
-  };
-  
-  //Favorites
-  
-  const removeFromFavorites = async (req, res, next) => {
-    try {
-      const { productId } = req.body;
-      const userJWT = req.user;
-      const user = await User.findById(userJWT.id);
-      user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
-      await user.save();
-  
-      return res
-        .status(200)
-        .json({ message: "Product removed from favorites successfully", user });
-    } catch (err) {
-      next(err);
-    }
-  };
-  
-  const addToFavorites = async (req, res, next) => {
-    try {
-      const { productId } = req.body;
-      const userJWT = req.user;
-      const user = await User.findById(userJWT.id);
-  
-      if (!user.favourites.includes(productId)) {
-        user.favourites.push(productId);
-        await user.save();
-      }
-  
-      return res
-        .status(200)
-        .json({ message: "Product added to favorites successfully", user });
-    } catch (err) {
-      next(err);
-    }
-  };
-  
-  const getUserFavorites = async (req, res, next) => {
-    try {
-      const userId = req.user.id;
-      const user = await User.findById(userId).populate("favourites").exec();
-      if (!user) {
-        return next(createError(404, "User not found"));
-      }
-      const favoriteProducts = user.favourites;
-      return res.status(200).json(favoriteProducts);
-    } catch (err) {
-      next(err);
-    }
-  };
-module.exports = { addFood, addFoodByAdmin, getAllItems, getFoodById, addToCart, removeFromCart, getAllCartItems,
+};
+module.exports = {
+    addFood, addFoodByAdmin, getAllItems, getFoodById,
     removeFromFavorites,
     addToFavorites,
     getUserFavorites,
     getAllOrders,
     placeOrder,
     addCategory,
-    getCategory
+    getCategory,
+    removeItem
 
- }
+}

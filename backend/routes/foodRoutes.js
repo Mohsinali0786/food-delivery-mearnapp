@@ -1,16 +1,24 @@
 const express =require('express')
+const multer  = require('multer')
 const router = express.Router()
-const {addFoodByAdmin ,addFood,getAllItems ,getFoodById, addToCart,removeFromCart,getAllCartItems,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory} = require('..//controllers/foodController')
+const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory, removeItem} = require('..//controllers/foodController')
 const {verifyToken} = require('../middleWare/verifyUser')
-router.post('/addFood', addFood)
+
+
+const storage = multer.diskStorage({
+    destination:'uploads',
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}${file.originalname}`);
+    },
+  });
+  const upload = multer({ storage: storage });
+
+router.post('/addFood' , upload.single('image'), addFood)
 router.post('/addFoodByAdmin', addFoodByAdmin)
 router.get('/getAllItems', getAllItems)
 router.get('/getFoodById/:id', getFoodById)
+router.post('/deleteFoodById', removeItem)
 
-
-router.post('/cart',verifyToken , addToCart)
-router.patch("/cart", verifyToken, removeFromCart);
-router.get("/cart", verifyToken, getAllCartItems);
 
 
 router.post("/favorite", verifyToken, addToFavorites);

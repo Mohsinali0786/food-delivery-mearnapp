@@ -53,7 +53,7 @@ const FoodSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        img: {
+        image: {
             type: String,
             default: null,
         },
@@ -65,16 +65,11 @@ const FoodSchema = new mongoose.Schema(
             },
             default: { org: 0.0, mrp: 0.0, off: 0 },
         },
-        // category: {
-        //     type: [String],
-        //     default: [],
+        // price: {
+        //     type: Number
         // },
         category: {
             type: String,
-        },
-        ingredients: {
-            type: [String],
-            // required: true,
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
