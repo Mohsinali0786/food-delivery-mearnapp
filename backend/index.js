@@ -45,14 +45,20 @@ app.get("/", async (req, res) => {
 
 
   const connectDB = () => {
-    mongoose.set("strictQuery", true);
-    mongoose
-      .connect(process.env.MONGODB_URL)
-      .then(() => console.log("Connected to Mongo DB"))
-      .catch((err) => {
-        console.error("failed to connect with mongo");
-        console.error(err);
-      });
+    // mongoose.set("strictQuery", true);
+    // mongoose
+    //   .connect(process.env.MONGODB_URL)
+    //   .then(() => console.log("Connected to Mongo DB"))
+    //   .catch((err) => {
+    //     console.error("failed to connect with mongo");
+    //     console.error(err);
+    //   });
+    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }).then((client) => {
+      console.log('Database Connected')
+    
+    }).catch((err) => {
+      console.log('Err===>', err)
+    });
   };
 
   const startServer = async () => {
