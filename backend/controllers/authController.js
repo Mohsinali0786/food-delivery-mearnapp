@@ -39,71 +39,71 @@ const Signup = async (req, res, next) => {
 }
 
 const UserLogin = async (req, res, next) => {
-  try {
-    const { email, password, token } = req.body;
+  // try {
+  //   const { email, password, token } = req.body;
 
-    //Check for existing user
-    const user = await User.findOne({ email: email }).exec();
-    if (!user) {
-      // return next(createError(409, "User not found.", res));
-      return res.json({success:false , message:"User not found."});
-    }
+  //   //Check for existing user
+  //   const user = await User.findOne({ email: email }).exec();
+  //   if (!user) {
+  //     // return next(createError(409, "User not found.", res));
+  //     return res.json({success:false , message:"User not found."});
+  //   }
 
-    const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
-    if (!isPasswordCorrect) {
-      // return next(createError(403, "Incorrect password", res));
-      return res.json({success:false , message:"Incorrect password"});
+  //   const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
+  //   if (!isPasswordCorrect) {
+  //     // return next(createError(403, "Incorrect password", res));
+  //     return res.json({success:false , message:"Incorrect password"});
 
-    }
+  //   }
 
 
-    let loginTokenId = generateToken(user._id)
-    // let userId = getUserIdFromToken(token)
-    // console.log(userId)
-    // if (userId = user._id) {
-    //   return res.status(200).json({ user, user ,token:loginTokenId});
-    // }
-    return res.status(200).json({success:true, user,  token: loginTokenId ,message:'Login In Successfully'});
+  //   let loginTokenId = generateToken(user._id)
+  //   // let userId = getUserIdFromToken(token)
+  //   // console.log(userId)
+  //   // if (userId = user._id) {
+  //   //   return res.status(200).json({ user, user ,token:loginTokenId});
+  //   // }
+  //   return res.status(200).json({success:true, user,  token: loginTokenId ,message:'Login In Successfully'});
 
-  } catch (err) {
-    next(err);
-  }
+  // } catch (err) {
+  //   next(err);
+  // }
 };
 const UserUpdate = async (req, res, next) => {
-  try {
-    const { email, password, role , userId } = req.body;
+  // try {
+  //   const { email, password, role , userId } = req.body;
 
-    //Check for existing user
-    console.log(userId, 'roleeeeeeee')
-    const user = await User.findByIdAndUpdate({_id:userId }, { role: role }).exec();
-    if (!user) {
-      return next(createError(409, "User not found.", res));
-    }
+  //   //Check for existing user
+  //   console.log(userId, 'roleeeeeeee')
+  //   const user = await User.findByIdAndUpdate({_id:userId }, { role: role }).exec();
+  //   if (!user) {
+  //     return next(createError(409, "User not found.", res));
+  //   }
 
-    return res.status(200).json({ success: true, message: 'Role Updated Successfully' });
+  //   return res.status(200).json({ success: true, message: 'Role Updated Successfully' });
 
-  } catch (err) {
-    next(err);
-  }
+  // } catch (err) {
+  //   next(err);
+  // }
 };
 const UserDelete = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    if (id) {
+  // try {
+  //   const { id } = req.params;
+  //   if (id) {
       
-      console.log('iddd', id  , req.params)
-      const user = await User.findByIdAndDelete(id);
-      if (!user) {
-        return next(createError(409, "User not found.", res));
-      }
+  //     console.log('iddd', id  , req.params)
+  //     const user = await User.findByIdAndDelete(id);
+  //     if (!user) {
+  //       return next(createError(409, "User not found.", res));
+  //     }
 
-      return res.status(200).json({ success: true, message: 'Deleted  Successfully' });
+  //     return res.status(200).json({ success: true, message: 'Deleted  Successfully' });
 
-    }
-  }
-  catch (err) {
-    next(err);
-  }
+  //   }
+  // }
+  // catch (err) {
+  //   next(err);
+  // }
 };
 const getAllUser = async (req, res, next) => {
   // try {
