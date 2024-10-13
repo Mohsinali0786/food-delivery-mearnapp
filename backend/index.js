@@ -15,9 +15,10 @@ app.use((req, res, next) => {
   res.header(
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept',
-  );
-  next();
-})
+    );
+    next();
+  })
+  app.use("/api",userRoutes)
 app.use(express.json())
 
 
@@ -33,7 +34,6 @@ app.use(express.json())
 //     });
 //   });
 
-app.use("/api",userRoutes)
 // app.use("/images",express.static('uploads'))
 app.get("/", async (req, res) => {
     res.status(200).json({
