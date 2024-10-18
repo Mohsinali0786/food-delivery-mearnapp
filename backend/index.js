@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express()
 app.use(cors({
   origin:"https://food-delivery-f-mearnapp.vercel.app",
-  methods:["POST","GET","PATCH","DELETE"],
+  methods:["POST","GET"],
   credentials:true
 }));
 app.use((req, res, next) => {
