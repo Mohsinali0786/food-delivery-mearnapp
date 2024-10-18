@@ -38,7 +38,7 @@ function App() {
             <Route path="/favorite"  element={<Favourites />} />
             <Route path="/cart"  element={<Cart />} />
             <Route path="/dishes/:id"  element={<FoodDetails />} />
-            <Route path="/dishes"  element={<FoodListing />} />
+            <Route path="/dishes"  element={<FoodDetails />} />
             <Route path="/all-users"  element={<AllUser />} />
             <Route path="/all-foods"  element={<FoodDisplay />} />
             <Route path="/cart-items"  element={<Cart />} />
