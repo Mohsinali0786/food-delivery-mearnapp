@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userRoutes = require('./routes/index')
 require('dotenv').config();
 const app = express()
+app.use(express.json())
 app.use(cors({
   origin:"https://food-delivery-f-mearnapp.vercel.app",
   methods:["POST","GET"],
@@ -19,7 +20,6 @@ app.use((req, res, next) => {
     next();
   })
   app.use("/api",userRoutes)
-app.use(express.json())
 
 
 // error handler
@@ -59,17 +59,7 @@ app.get("/", async (req, res) => {
 
   const startServer = async () => {
     try {
-      // mongoose.set("strictQuery", true);
-      const uri="mongodb+srv://mohsin00786:mohsin00786@cluster0.9pujbap.mongodb.net/foodDelivery?retryWrites=true&w=majority&appName=Cluster0"
-  
-      mongoose
-        .connect(uri,{})
-        .then(() => console.log("Connected to Mongo DB"))
-        .catch((err) => {
-          console.error("failed to connect with mongo");
-          console.error(err);
-        });
-      // connectDB();
+      connectDB();
       app.listen(`${process.env.PORT}`, () => console.log("Server started on port" , `${process.env.PORT}`));
     } catch (error) {
       console.log(error);
