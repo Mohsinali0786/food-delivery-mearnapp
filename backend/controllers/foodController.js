@@ -171,54 +171,54 @@ const getAllOrders = async (req, res, next) => {
 
 //Favorites
 
-const removeFromFavorites = async (req, res, next) => {
-    try {
-        const { productId } = req.body;
-        const userJWT = req.user;
-        const user = await User.findById(userJWT.id);
-        user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
-        await user.save();
+// const removeFromFavorites = async (req, res, next) => {
+//     try {
+//         const { productId } = req.body;
+//         const userJWT = req.user;
+//         const user = await User.findById(userJWT.id);
+//         user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
+//         await user.save();
 
-        return res
-            .status(200)
-            .json({ message: "Product removed from favorites successfully", user });
-    } catch (err) {
-        next(err);
-    }
-};
+//         return res
+//             .status(200)
+//             .json({ message: "Product removed from favorites successfully", user });
+//     } catch (err) {
+//         next(err);
+//     }
+// };
 
-const addToFavorites = async (req, res, next) => {
-    try {
-        const { productId } = req.body;
-        const userJWT = req.user;
-        const user = await User.findById(userJWT.id);
+// const addToFavorites = async (req, res, next) => {
+//     try {
+//         const { productId } = req.body;
+//         const userJWT = req.user;
+//         const user = await User.findById(userJWT.id);
 
-        if (!user.favourites.includes(productId)) {
-            user.favourites.push(productId);
-            await user.save();
-        }
+//         if (!user.favourites.includes(productId)) {
+//             user.favourites.push(productId);
+//             await user.save();
+//         }
 
-        return res
-            .status(200)
-            .json({ message: "Product added to favorites successfully", user });
-    } catch (err) {
-        next(err);
-    }
-};
+//         return res
+//             .status(200)
+//             .json({ message: "Product added to favorites successfully", user });
+//     } catch (err) {
+//         next(err);
+//     }
+// };
 
-const getUserFavorites = async (req, res, next) => {
-    try {
-        const userId = req.user.id;
-        const user = await User.findById(userId).populate("favourites").exec();
-        if (!user) {
-            return next(createError(404, "User not found"));
-        }
-        const favoriteProducts = user.favourites;
-        return res.status(200).json(favoriteProducts);
-    } catch (err) {
-        next(err);
-    }
-};
+// const getUserFavorites = async (req, res, next) => {
+//     try {
+//         const userId = req.user.id;
+//         const user = await User.findById(userId).populate("favourites").exec();
+//         if (!user) {
+//             return next(createError(404, "User not found"));
+//         }
+//         const favoriteProducts = user.favourites;
+//         return res.status(200).json(favoriteProducts);
+//     } catch (err) {
+//         next(err);
+//     }
+// };
 module.exports = {
     addFood, addFoodByAdmin, getAllItems, getFoodById,
     removeFromFavorites,
