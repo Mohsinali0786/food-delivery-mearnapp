@@ -11,7 +11,7 @@ export const StoreContextProvider = (props) => {
     const [token, setToken] = useState('')
     useEffect(() => {
         async function loadData() {
-            // await getAllFoods()
+            await getAllFoods()
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"))
                 await loadCartData(localStorage.getItem("token"))
@@ -21,7 +21,7 @@ export const StoreContextProvider = (props) => {
     }, [])
     console.log('tokeeeeeeeen Outside', token)
 
-    const url = "http://localhost:5001"
+    const url = "https://food-delivery-b-mearnapp.vercel.app/api"
     const addToCart = async (itemId) => {
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
