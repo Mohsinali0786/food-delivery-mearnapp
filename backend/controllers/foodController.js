@@ -79,15 +79,15 @@ const addCategory = async (req, res, next) => {
     // }
 }
 const getCategory = async (req, res, next) => {
-    try {
-        let allCategories = await foodCategory.find();
+    // try {
+    //     let allCategories = await foodCategory.find();
 
-        return res
-            .status(201)
-            .json({ message: "Products Category added successfully", allCategories });
-    } catch (err) {
-        next(err);
-    }
+    //     return res
+    //         .status(201)
+    //         .json({ message: "Products Category added successfully", allCategories });
+    // } catch (err) {
+    //     next(err);
+    // }
 }
 const getAllItems = async (req, res, next) => {
     try {
