@@ -63,7 +63,7 @@ app.get("/", async (req, res) => {
       const uri="mongodb+srv://mohsin00786:mohsin00786@cluster0.9pujbap.mongodb.net/foodDelivery?retryWrites=true&w=majority&appName=Cluster0"
   
       mongoose
-        .connect(uri,{useUnifiedTopology: true})
+        .connect(uri,{})
         .then(() => console.log("Connected to Mongo DB"))
         .catch((err) => {
           console.error("failed to connect with mongo");
