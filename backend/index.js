@@ -63,14 +63,14 @@ app.get("/", async (req, res) => {
       const uri="mongodb+srv://mohsin00786:mohsin00786@cluster0.9pujbap.mongodb.net/foodDelivery?retryWrites=true&w=majority&appName=Cluster0"
   
       mongoose
-        .connect(uri)
+        .connect(uri,{useUnifiedTopology: true})
         .then(() => console.log("Connected to Mongo DB"))
         .catch((err) => {
           console.error("failed to connect with mongo");
           console.error(err);
         });
       // connectDB();
-      app.listen(process.env.PORT, () => console.log("Server started on port" , process.env.PORT));
+      app.listen(`${process.env.PORT}`, () => console.log("Server started on port" , `${process.env.PORT}`));
     } catch (error) {
       console.log(error);
     }
