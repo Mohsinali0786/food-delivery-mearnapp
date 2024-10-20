@@ -5,15 +5,17 @@ const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFa
 const {verifyToken} = require('../middleWare/verifyUser')
 
 
-const storage = multer.diskStorage({
-    destination:'uploads',
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}${file.originalname}`);
-    },
-  });
-  const upload = multer({ storage: storage });
+// const storage = multer.diskStorage({
+//     destination:'uploads',
+//     filename: (req, file, cb) => {
+//       cb(null, `${Date.now()}${file.originalname}`);
+//     },
+//   });
+//   const upload = multer({ storage: storage });
 
-router.post('/addFood' , upload.single('image'), addFood)
+// router.post('/addFood' , upload.single('image'), addFood)
+router.post('/addFood' , addFood)
+
 router.post('/addFoodByAdmin', addFoodByAdmin)
 router.get('/getAllItems', getAllItems)
 router.get('/getFoodById/:id', getFoodById)
