@@ -8,6 +8,7 @@ import Cart from './cart/Cart'
 import PlaceOrder from './order/order'
 import VerifyOrder from './verify/verify'
 import MyOrders from './myOrders/myOrders'
+import Menu from './OurMenu/OurMenu'
 
 export{
     Home,
@@ -19,6 +20,7 @@ export{
     AllUser,
     PlaceOrder,
     VerifyOrder,
-    MyOrders
+    MyOrders,
+    Menu
 }
 

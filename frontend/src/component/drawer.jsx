@@ -41,6 +41,14 @@ export default function TemporaryDrawer() {
       iconName: "Orders",
       iconImg: DeliveryDiningIcon,
     },
+    {
+      iconName: "Menus",
+      iconImg: MenuBookIcon,
+      path: "menu",
+
+
+    },
+
   ];
   useEffect(() => {
     if (loginData.role == "SUPERADMIN_ROLE") {
