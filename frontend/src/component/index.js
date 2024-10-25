@@ -8,6 +8,7 @@ import FoodDisplay from './foodDisplay/foodDisplay'
 import FoodItem from './foodItem/foodItem'
 import Footer from './footer/footer'
 import AppDownload from './appDownload/appDownload'
+import ProductForm from './addProductForm/addProduct'
 export{
     Navbar,
     StickyHeadTable,
@@ -18,6 +19,7 @@ export{
     FoodDisplay,
     FoodItem,
     Footer,
-    AppDownload
+    AppDownload,
+    ProductForm
 }
 
