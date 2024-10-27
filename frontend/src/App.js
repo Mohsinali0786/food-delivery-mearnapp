@@ -13,7 +13,8 @@ import {
   AllUser,
   PlaceOrder,
   VerifyOrder,
-  MyOrders
+  MyOrders,
+  Menu
 } from './pages';
 import { useState } from 'react';
 const Container = styled.div``;
@@ -38,13 +39,15 @@ function App() {
             <Route path="/favorite"  element={<Favourites />} />
             <Route path="/cart"  element={<Cart />} />
             <Route path="/dishes/:id"  element={<FoodDetails />} />
-            <Route path="/dishes"  element={<FoodDetails />} />
+            <Route path="/dishes"  element={<FoodListing />} />
             <Route path="/all-users"  element={<AllUser />} />
             <Route path="/all-foods"  element={<FoodDisplay />} />
             <Route path="/cart-items"  element={<Cart />} />
             <Route path="/orders"  element={<PlaceOrder />} />
             <Route path="/verify"  element={<VerifyOrder />} />
             <Route path="/myOrders"  element={<MyOrders />} />
+            <Route path="/menu"  element={<Menu />} />
+
 
 
 
