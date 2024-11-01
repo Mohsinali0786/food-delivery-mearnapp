@@ -12,6 +12,9 @@
 .justify-content-between{
   justify-content: space-between;
 }
+.justify-content-end{
+  justify-content: end;
+}
 .align-center{
   align-items: center;
 }

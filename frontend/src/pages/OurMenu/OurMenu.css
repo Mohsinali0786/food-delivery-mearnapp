@@ -10,9 +10,12 @@
   .cart-items-item{
       margin: 10px 0px;
       color: black;
+      align-items: center;
   }
   .cart-items-item img{
-      width: 50px;
+      width: 7vw;
+      height: 50px;
+      object-fit: cover;
   }
   .cart hr{
       height: 1px;

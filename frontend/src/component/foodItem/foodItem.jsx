@@ -5,7 +5,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
-const FoodItem = ({ key, id, name, image, price ,  description }) => {
+const FoodItem = ({ key, id, name, image, price ,  description ,quantity }) => {
   const [itemCount, setItemCount] = useState(0);
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
@@ -22,7 +22,7 @@ const FoodItem = ({ key, id, name, image, price ,  description }) => {
         ) : (
           <div className="food-item-counter">
             <AddCircleOutlineIcon
-              onClick={() => addToCart(id)}
+              onClick={() => addToCart(id , quantity)}
               className="addItemsIcon"
               sx={{ backgroundColor: "green" }}
             />
@@ -60,6 +60,8 @@ const FoodItem = ({ key, id, name, image, price ,  description }) => {
               </p>
             ) : null}
           </div>
+          <p className="mp-0">Quantity:<b>{quantity}</b></p>
+
         </div>
       </div>
     </div>

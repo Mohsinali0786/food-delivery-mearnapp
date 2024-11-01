@@ -17,7 +17,7 @@ export default function FoodDisplay({ category }) {
         {allItems && allItems.map((item, index) => {
           console.log(item , ' ============> allItems')
           if (category == "All" || category == item.category || !category) {
-            return <FoodItem description={item?.description} key={index} id={item?._id} name={item?.name} image={item?.image?.url} price={item?.price}/>;
+            return <FoodItem quantity={item.quantity} description={item?.description} key={index} id={item?._id} name={item?.name} image={item?.image?.url} price={item?.price}/>;
           }
         })}
       </div>

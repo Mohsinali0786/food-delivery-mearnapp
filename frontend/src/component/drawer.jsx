@@ -40,6 +40,7 @@ export default function TemporaryDrawer() {
     {
       iconName: "Orders",
       iconImg: DeliveryDiningIcon,
+      path: "myOrders",
     },
     {
       iconName: "Menus",

@@ -68,6 +68,10 @@ const FoodSchema = new mongoose.Schema(
         // price: {
         //     type: Number
         // },
+        quantity:{
+            type: Number,
+            default: 0,
+        },
         category: {
             type: String,
         },

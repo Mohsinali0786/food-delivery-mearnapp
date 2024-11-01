@@ -106,10 +106,9 @@ const getAllItems = async (req, res, next) => {
 }
 
 const removeItem = async (req, res, next) => {
+    console.log(req.params,'params')
     try {
-        let item = await Food.findById(req.body.id);
-        console.log(item, 'item ===>')
-        await Food.findByIdAndDelete(req.body.id)
+        await Food.findByIdAndDelete(req.params.id)
         return res.status(201).json({ success: true, message: 'Food Removed' });
     } catch (err) {
         next(err);
