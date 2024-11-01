@@ -17,25 +17,28 @@ export default function ProductForm({ setShowProductForm }) {
     e.preventDefault();
     let res = {};
     console.log(data);
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("productName",data?.productName)
-    formData.append("description",data?.description)
-    formData.append("quantity",data?.quantity)
-    formData.append("category",data?.category)
+    // formData.append("productName",data?.productName)
+    // formData.append("description",data?.description)
+    // formData.append("quantity",data?.quantity)
+    // formData.append("category",data?.category)
     // formData.append("price",data?.price)
     // JSON.stringify(formData)
     // setData({...data,...formData})
     // res = await postRequest("/addFood", formData, token);
     const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Bearer ${token}`
-        }
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Access-Control-Allow-Origin": "*",
+        Authorization: `Bearer ${token}`,
+      },
     };
-    const result = await axios.post('http://localhost:5001/api/addFood', formData,config)
-    console.log(result.data)
-  
+    const result = await axios.post(
+      "http://localhost:5001/api/addFood",
+      data,
+      config
+    );
+    console.log(result.data);
+
     console.log(res, "errrrr");
     if (res && res.success) {
     }
@@ -43,6 +46,19 @@ export default function ProductForm({ setShowProductForm }) {
       alert(res.message);
     }
   };
+  const transformFile = async (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        // setFile(reader.result);
+        setData({ ...data, image: reader.result });
+      };
+    }
+  };
+
+
+
   useEffect(() => {
     getFoodCategory();
   }, []);
@@ -72,7 +88,7 @@ export default function ProductForm({ setShowProductForm }) {
             type="file"
             filename={file}
             onChange={(e) => {
-              setFile(e.target.files[0]);
+              transformFile(e.target.files[0]);
             }}
             required
           />
@@ -103,10 +119,27 @@ export default function ProductForm({ setShowProductForm }) {
           <input
             type="number"
             name="Price"
-            value={data?.price}
-            // onChange={(e) => setData({ ...data, price: e.target.value })}
+            value={data?.price?.org}
+            onChange={(e) =>
+              setData({
+                ...data,
+                price: { off: data?.price?.off, org: e.target.value, mrp: e.target.value },
+              })
+            }
             placeholder="Price"
             required
+          />
+          <input
+            type="number"
+            name="Discount"
+            value={data?.price?.off}
+            onChange={(e) =>
+              setData({
+                ...data,
+                price: { off: e.target.value, org: data?.price?.org, mrp: (data?.price?.org-(data?.price?.org*e.target.value/100)) },
+              })
+            }
+            placeholder="Discount %"
           />
           <select
             name="Category"

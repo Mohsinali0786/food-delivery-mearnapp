@@ -7,8 +7,7 @@ const mongoose = require('mongoose')
 const { createError } = require('../error')
 const { generateToken, getUserIdFromToken } = require('../config/jwtToken')
 const foodCategory = require('../models/foodCategoryModel')
-
-
+const cloudinary = require("../service/cloudinaryUploader")
 const addFoodByAdmin = async (req, res, next) => {
     // try {
     //     const { name, description, img, price, ingredients, category, userId } = req.body;
@@ -33,27 +32,30 @@ const addFoodByAdmin = async (req, res, next) => {
 const addFood = async (req, res, next) => {
 
     try {
-        const foodData = req.body;
-        const file_name = req.file.filename
+        console.log(req.body)
+        // const { name, description, price, category, userId } = req.body;
+        const {description , productName , quantity , category ,price} = req.body;
+        const uploadRes = await cloudinary.uploader.upload(req.body.image, { upload_preset: "onlineShop" });
+        if (uploadRes) {
+            const product = new Food({
+                description,
+                image: uploadRes,
+                name:productName,
+                category,
+                quantity,
+                price: price,
+                // user: userId
+            });
+            await product.save();
+        }
 
-        const { name, description, price, category, userId } = foodData;
-        console.log('price', JSON.parse(req.body.price))
-
-        const product = new Food({
-            name,
-            description,
-            image: file_name,
-            price:JSON.parse(req.body.price),
-            category,
-            user: userId
-        });
-        await product.save();
         res.json({
             success: true,
             message: "Food Added successfully"
         })
 
     } catch (err) {
+        console.log('Errrrr', err)
         res.json({
             success: false,
             message: "Error",
@@ -62,10 +64,12 @@ const addFood = async (req, res, next) => {
     }
 
 }
+
+
 const addCategory = async (req, res, next) => {
     try {
         const categoryData = req.body;
- 
+
         const { name } = categoryData;
         const category = new foodCategory({
             name,
@@ -84,7 +88,7 @@ const getCategory = async (req, res, next) => {
 
         return res
             .status(201)
-            .json({ message: "Products Category added successfully", allCategories });
+            .json({ message: "Products Category get successfully", allCategories });
     } catch (err) {
         next(err);
     }
@@ -93,7 +97,7 @@ const getAllItems = async (req, res, next) => {
     try {
         let allItems = await Food.find().populate("user");
 
-       
+
         console.log('allItems', allItems)
         return res.status(201).json({ success: true, allItems });
     } catch (err) {
@@ -228,6 +232,5 @@ module.exports = {
     placeOrder,
     addCategory,
     getCategory,
-    removeItem
-
+    removeItem,
 }
