@@ -21,11 +21,14 @@ export const StoreContextProvider = (props) => {
     }, [])
     console.log('tokeeeeeeeen Outside', token)
 
-    const url = "https://food-delivery-b-mearnapp.vercel.app"
-//   const url = "http://localhost:5001"
+    const url = "https://food-delivery-b-mearnapp.vercel.app/api"
+//   const url = "http://localhost:5001/api"
 
 
-    const addToCart = async (itemId) => {
+    const addToCart = async (itemId,quantity) => {
+        if(quantity == cartItems[itemId] && quantity){
+            return
+        }
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
         }
@@ -34,14 +37,14 @@ export const StoreContextProvider = (props) => {
         }
         console.log(token, 'token')
         if (token) {
-            await axios.post(url + "/api/cart", { productId: itemId }, { headers: { token } })
+            await axios.post(url + "/cart", { productId: itemId }, { headers: { token } })
         }
     }
 
     const removeFromCart = async (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }))
         if (token) {
-            await axios.patch(url + "/api/cart", { productId: itemId }, { headers: { token } })
+            await axios.patch(url + "/cart", { productId: itemId }, { headers: { token } })
         }
     }
     // useEffect(() => {
@@ -49,7 +52,7 @@ export const StoreContextProvider = (props) => {
     // }, [cartItems])
     const loadCartData = async (token) => {
         // console.log('tokeeeeeeeen', token)
-        const res = await axios.get(url + "/api/cart", { headers: { token } })
+        const res = await axios.get(url + "/cart", { headers: { token } })
         console.log(res.data, 'res.data')
         setCartItems(res.data)
     }
