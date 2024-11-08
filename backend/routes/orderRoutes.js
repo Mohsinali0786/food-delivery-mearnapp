@@ -10,7 +10,7 @@ router.post('/updateStatus' , updateStatus)
 
 
 // GET Routes
-router.post('/getAllOrderedItem', getOrderItem)
+// router.post('/getAllOrderedItem', getOrderItem)
 router.get('/listOrder' , listOrder)
 
 
