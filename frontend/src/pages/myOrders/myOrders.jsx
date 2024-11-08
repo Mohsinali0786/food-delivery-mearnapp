@@ -8,7 +8,8 @@ export default function MyOrders() {
   const { token, url, loginData } = useContext(StoreContext);
   const [data, setData] = useState([]);
   const fetchOrders = async () => {
-    console.log("loginData", loginData);
+    const loginData = JSON.parse(localStorage.getItem("loginInfo"))
+    console.log("loginData", loginData)
     const response = await axios.post(
       url + "/api/userOrders",
       { userId: loginData._id },
