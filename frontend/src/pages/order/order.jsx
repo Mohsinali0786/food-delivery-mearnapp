@@ -45,7 +45,7 @@ export default function PlaceOrder() {
     let res = await axios.post(url + "/placeOrder", orderData, {
       headers: { token },
     });
-    console.log("res.data ====>", res.data);
+    console.log("res.data ====>", res);
     if (res.data.success) {
       const { session_url } = res.data;
       window.location.replace(session_url);
