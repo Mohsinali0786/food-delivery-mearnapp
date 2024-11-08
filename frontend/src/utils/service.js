@@ -1,15 +1,18 @@
 // Neer used Only sample 
 
 import axios from 'axios'
-export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
+export const baseUrl = "http://localhost:5001/api";
+// export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
 
-export const postRequest = async (url, body) => {
-  const response = await fetch(url, {
+
+export const postRequest = async (url, body , token) => {
+  const response = await fetch(baseUrl+url, {
     method: "POST",
     headers: {
+      'Authorization': `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body,
+    body:JSON.stringify(body),
   });
 
   const data = await response.json();
@@ -49,7 +52,7 @@ export const getRequest = async (url) => {
   let fullUrl = baseUrl + url
   const response = await axios.get(fullUrl)
     .then(response => {
-      console.log(response);
+      console.log(response,'get Request');
 
       if(response.data)
         return response.data;
