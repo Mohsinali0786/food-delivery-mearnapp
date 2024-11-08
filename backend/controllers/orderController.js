@@ -10,9 +10,9 @@ require('dotenv').config();
 // console.log('process.env.STRIPE_SECRETE_KEY', process.env.STRIPE_SECRETE_KEY)
 const stripe = new Stripe(`${process.env.STRIPE_SECRETE_KEY}`)
 
-const frontend_Url = 'http://localhost:5174/'
+const frontend_Url = 'https://food-delivery-f-mearnapp.vercel.app/'
 const placeOrder = async (req, res, next) => {
-    // console.log('stripe   sss', process.env.STRIPE_SECRETE_KEY)
+    console.log('stripe   sss', stripe)
     try {
         console.log('bodyyyyyyy', req.body)
         const { items, amount, userId, address } = req.body;
