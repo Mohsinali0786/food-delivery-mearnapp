@@ -11,7 +11,7 @@ export default function MyOrders() {
     const loginData = JSON.parse(localStorage.getItem("loginInfo"))
     console.log("loginData", loginData)
     const response = await axios.post(
-      url + "/api/userOrders",
+      url + "/userOrders",
       { userId: loginData._id },
       { headers: { token } }
     );
