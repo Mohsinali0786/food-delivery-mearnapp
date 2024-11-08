@@ -1,9 +1,10 @@
 const express =require('express')
 const multer  = require('multer')
 const router = express.Router()
-const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory, removeItem} = require('..//controllers/foodController')
+const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory, removeItem, removeCategory, updateFoodQuantity} = require('..//controllers/foodController')
 const {verifyToken} = require('../middleWare/verifyUser')
-
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // const storage = multer.diskStorage({
 //     destination:'uploads',
@@ -16,10 +17,12 @@ const {verifyToken} = require('../middleWare/verifyUser')
 // router.post('/addFood' , upload.single('image'), addFood)
 router.post('/addFood' , addFood)
 
+
 router.post('/addFoodByAdmin', addFoodByAdmin)
 router.get('/getAllItems', getAllItems)
 router.get('/getFoodById/:id', getFoodById)
-router.post('/deleteFoodById', removeItem)
+router.post('/updateQuantity/:id', updateFoodQuantity)
+router.delete('/deleteFoodById/:id', removeItem)
 
 
 
@@ -32,6 +35,8 @@ router.get("/order", verifyToken, getAllOrders);
 
 router.post("/add-category", addCategory);
 router.get("/get-category", getCategory);
+router.delete("/remove-category/:id", removeCategory);
+
 
 
 
