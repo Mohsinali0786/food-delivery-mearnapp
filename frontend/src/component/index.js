@@ -9,6 +9,9 @@ import FoodItem from './foodItem/foodItem'
 import Footer from './footer/footer'
 import AppDownload from './appDownload/appDownload'
 import ProductForm from './addProductForm/addProduct'
+import CategoryForm from './categoryForm/category'
+import BasicModal from './modall/modal'
+
 export{
     Navbar,
     StickyHeadTable,
@@ -20,6 +23,8 @@ export{
     FoodItem,
     Footer,
     AppDownload,
-    ProductForm
+    ProductForm,
+    CategoryForm,
+    BasicModal
 }
 
