@@ -155,6 +155,8 @@ const TextButton = styled.span`
 export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogin }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCartTotalAmount, token, setToken, loginData } = useContext(StoreContext)
+  const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
+  console.log(loginInfo, 'logiiiiiiiiiiii')
   const Navigate = useNavigate()
 
   return (
@@ -164,7 +166,10 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
           <NavLogo to="/">
             <Logo src={LogoImg} />
           </NavLogo>
-          <TemporaryDrawer />
+          {loginInfo ?
+            <TemporaryDrawer />
+            : null
+          }
 
         </div>
 
@@ -184,15 +189,15 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                 </MobileIcons> */}
 
         <NavItems>
-          <Navlink to="/">Home</Navlink>
-          <Navlink to="/dishes">Dishes</Navlink>
-          <Navlink to="/orders">Orders</Navlink>
-          <Navlink to="/contact">Contact</Navlink>
-          {loginData?.role == "SUPERADMIN_ROLE" ?
+          {/* <Navlink to="/">Home</Navlink> */}
+          {/* <Navlink to="/dishes">Dishes</Navlink> */}
+          {/* <Navlink to="/orders">Orders</Navlink> */}
+          {/* <Navlink to="/contact">Contact</Navlink> */}
+          {/* {loginData?.role == "SUPERADMIN_ROLE" ?
             <Navlink onClick={() => window.location.href = 'http://localhost:5173'}>Dashboard</Navlink>
             :
             null
-          }
+          } */}
         </NavItems>
 
         {isOpen && (
@@ -261,7 +266,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                     <Link to="/myOrders" className="text-black">Order</Link>
                   </li>
                   <hr />
-                  <li onClick={() => { localStorage.removeItem("token"); setToken(''); Navigate("/") }}>
+                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/") }}>
                     {/* <Button > */}
                     <LogoutIcon className="text-tomato" />
                     <p className="text-black">Logout</p>
