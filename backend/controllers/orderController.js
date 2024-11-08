@@ -1,6 +1,8 @@
 const { matches } = require('validator');
 const OrderItem = require('../models/orderModels')
 const userModel = require('../models/userModel')
+const Food = require('../models/foodModel')
+
 const Stripe = require('stripe');
 const orderModels = require('../models/orderModels');
 require('dotenv').config();
@@ -30,7 +32,7 @@ const placeOrder = async (req, res, next) => {
                 product_data: {
                     name: `Name : ${item.name}`,
                 },
-                unit_amount: Math.round(item.price?.mrp * 277.41 * 100),
+                unit_amount: Math.round(item.price?.mrp  * 100),
             },
             quantity: item.quantity
         }))
@@ -40,7 +42,7 @@ const placeOrder = async (req, res, next) => {
                 product_data: {
                     name: "Delivery Charges"
                 },
-                unit_amount: Math.round(2 * 277.41 * 100)
+                unit_amount: Math.round(2 * 100)
             },
             quantity: 1
         })
@@ -60,10 +62,20 @@ const placeOrder = async (req, res, next) => {
 }
 
 const verifyOrder = async (req, res, next) => {
-    const { orderId, success } = req.body;
+    const { orderId, success} = req.body;
+    // console.log(req.body,'Verify')
     try {
         if (success == "true") {
-            await orderModels.findByIdAndUpdate(orderId, { payment: true })
+            let order = await orderModels.findByIdAndUpdate(orderId, { payment: true })
+            // console.log('order',order)
+            for (let i=0;i<order.items.length;i++){
+                // console.log(order.items[i]._id,'order.items[i]._id')
+                let myItem = await Food.findById(order.items[i])
+                console.log(myItem,'MyItems')
+                console.log(order.items[i].quantity,'order.items.quantitys')
+                
+                await Food.findByIdAndUpdate(order.items[i]._id,{quantity:myItem.quantity-order.items[i].quantity})
+            }
             res.json({ success: true, message: 'paid' })
         }
         else {
@@ -115,18 +127,18 @@ const updateStatus = async (req, res, next) => {
     }
 }
 
-const getOrderItem = async (req, res, next) => {
-    try {
+// const getOrderItem = async (req, res, next) => {
+//     try {
 
-        const allOrderedItems = await OrderItem.findById(req.body.id);
+//         const allOrderedItems = await OrderItem.findById(req.body.id);
 
-        return res.status(201).json({ allOrderedItems });
-    } catch (err) {
-        next(err);
-    }
-}
-
-
+//         return res.status(201).json({ allOrderedItems });
+//     } catch (err) {
+//         next(err);
+//     }
+// }
 
 
-module.exports = { placeOrder, getOrderItem, verifyOrder , userOrder , listOrder ,updateStatus}
+
+
+module.exports = { placeOrder, verifyOrder , userOrder , listOrder ,updateStatus}
