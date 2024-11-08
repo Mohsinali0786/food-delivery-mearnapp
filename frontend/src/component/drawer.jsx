@@ -15,53 +15,86 @@ import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-import { useEffect ,useContext } from "react";
+import { useEffect, useContext } from "react";
 import { StoreContext } from "../context/storeContext";
 import { Link } from "react-router-dom";
 export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(false);
-  const { loginData} = useContext(StoreContext);
+  const { loginData } = useContext(StoreContext);
+  const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  let menuItems = [
+  // let menuItems = [
+  //   {
+  //     iconName: "All-Users",
+  //     iconImg: SupervisedUserCircleIcon,
+  //     path: "all-users",
+  //   },
+  //   {
+  //     iconName: "Manage Orders",
+  //     iconImg: MenuBookIcon,
+  //     path: "adminOrder",
+  //   },
+  //   {
+  //     iconName: "Orders",
+  //     iconImg: DeliveryDiningIcon,
+  //     path: "myOrders",
+  //   },
+  //   {
+  //     iconName: "Menus",
+  //     iconImg: MenuBookIcon,
+  //     path: "menu",
+
+  //   },
+
+  // ];
+  const [menuItems, setMenuItems] = React.useState([
     {
       iconName: "All-Users",
       iconImg: SupervisedUserCircleIcon,
       path: "all-users",
-      visibility: false,
+      visibility:false
     },
     {
-      iconName: "All-Items",
+      iconName: "Manage Orders",
       iconImg: MenuBookIcon,
-      path: "all-foods",
+      path: "adminOrder",
+      visibility:false
     },
     {
       iconName: "Orders",
       iconImg: DeliveryDiningIcon,
       path: "myOrders",
+      visibility:false
     },
     {
       iconName: "Menus",
       iconImg: MenuBookIcon,
       path: "menu",
-
-
+      visibility:false
     },
-
-  ];
+  ]);
   useEffect(() => {
-    if (loginData.role == "SUPERADMIN_ROLE") {
-      let allUsersIndexNo = menuItems.findIndex((x) => x.iconName == "All-Users");
+    if (loginInfo.role == "SUPERADMIN_ROLE") {
+      console.log("menu useEffect", menuItems);
+      // let allUsersIndexNo = menuItems.findIndex((x) => x.iconName == "All-Users");
+      // menuItems[allUsersIndexNo].visibility = false;
+      menuItems.forEach((x) => (x.visibility = true));
+    } else {
+      let allUsersIndexNo = menuItems.findIndex(
+        (x) => x.iconName == "Orders"
+      );
       menuItems[allUsersIndexNo].visibility = true;
     }
-  },[menuItems]);
+  }, [open]);
+  console.log("DrawerList", menuItems);
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {menuItems.map((text, index) => {
-          // if (text.visibility == true)
+          if (text.visibility == true)
             return (
               <Link to={text.path} className="sideBarLinks">
                 <ListItem key={text} disablePadding>
@@ -95,6 +128,7 @@ export default function TemporaryDrawer() {
     </Box>
   );
 
+  console.log("menu", menuItems);
   return (
     <div>
       <Button onClick={toggleDrawer(true)} className="sideBarIcon">
