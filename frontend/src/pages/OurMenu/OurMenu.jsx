@@ -1,18 +1,24 @@
 import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/storeContext";
 import paracel_icon from "../../assets/parcel.avif";
-import { Button } from "@mui/material";
-import { ProductForm } from "../../component";
+import AddIcon from "@mui/icons-material/Add";
+import { ProductForm, CategoryForm } from "../../component";
 import "./OurMenu.css";
+import { Button } from "@mui/material";
 import axios from "axios";
-import { deleteRequest } from "../../utils/service";
+import { deleteRequest, postRequest } from "../../utils/service";
 import { getAllFoods } from "../../utils/commonMethods";
+import { BasicModal } from "../../component";
+import { toast } from "react-toastify";
 export default function Menu() {
   const { token, url, loginData, allItems, setAllItems } =
     useContext(StoreContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState();
   const [showProductForm, setShowProductForm] = useState(false);
+  const [updateQuantity, setUpdateQuantity] = useState(false);
+  const [quantity,setQuantity] = useState(0)
+  const [showCategoryForm, setShowCategoryForm] = useState(false);
 
   //   const fetchOrders = async () => {
   //     console.log("loginData", loginData);
@@ -37,14 +43,26 @@ export default function Menu() {
     setAllItems(allItems?.allItems);
     // setLoading(false);
   };
+  const update = async(id) =>{
+    console.log('id',id)
+    const res = await postRequest(`/updateQuantity/${id}`,{quantity:quantity})
+    console.log('resssssssss',res)
+    toast.success(res.message)
+  }
   return (
     <>
       {showProductForm ? (
         <ProductForm setShowProductForm={setShowProductForm} />
       ) : null}
+      {showCategoryForm ? (
+        <CategoryForm setShowCategoryForm={setShowCategoryForm} />
+      ) : null}
       <div className="cart">
         <div className="d-flex justify-content-end">
           <Button onClick={() => setShowProductForm(true)}>Add Product</Button>
+          <Button onClick={() => setShowCategoryForm(true)}>
+            Add Category
+          </Button>
         </div>
         <div className="cart-items">
           <div className="cart-items-title">
@@ -66,7 +84,10 @@ export default function Menu() {
                       <img src={item?.image?.url} alt="" />
                       <p>{item?.name}</p>
                       <p>${item?.price?.mrp}</p>
-                      <p>{item?.quantity}</p>
+                      <div className="d-flex">
+                        <p>{item?.quantity}</p>
+                        <BasicModal title='Add' header='Add Quantity' onOk={update} setQuantity={setQuantity} foodId={item?._id}/>
+                      </div>
                       <p
                         onClick={() => deleteFood(item?._id)}
                         className="pointer"
