@@ -3,6 +3,8 @@ import { lightTheme } from "./utils/Theme";
 import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Navbar,LoginPopUp, FoodDisplay, Footer} from "./component";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   Home,
   Authentication,
@@ -14,17 +16,20 @@ import {
   PlaceOrder,
   VerifyOrder,
   MyOrders,
-  Menu
+  Menu,
+  Order
 } from './pages';
 import { useState } from 'react';
 const Container = styled.div``;
 function App() {
   const [showLogin, setShowLogin] = useState(false);
-
+// const url = "http://localhost:5001/api"
+const url = "https://food-delivery-b-mearnapp.vercel.app/api"
   return (
     <ThemeProvider theme={lightTheme}>
       <BrowserRouter>
         <Container>
+        <ToastContainer autoClose={1000} hideProgressBar={false}/>
           {
             showLogin ? <LoginPopUp setShowLogin={setShowLogin}/> : null
           }
@@ -47,6 +52,7 @@ function App() {
             <Route path="/verify"  element={<VerifyOrder />} />
             <Route path="/myOrders"  element={<MyOrders />} />
             <Route path="/menu"  element={<Menu />} />
+            <Route path="/adminOrder"  element={<Order  url={url}/>} /> 
 
 
 
