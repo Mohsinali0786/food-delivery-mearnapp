@@ -7,12 +7,12 @@ const Stripe = require('stripe');
 const orderModels = require('../models/orderModels');
 require('dotenv').config();
 
-console.log('process.env.STRIPE_SECRETE_KEY', process.env.STRIPE_SECRETE_KEY)
+// console.log('process.env.STRIPE_SECRETE_KEY', process.env.STRIPE_SECRETE_KEY)
 const stripe = new Stripe(`${process.env.STRIPE_SECRETE_KEY}`)
 
 const frontend_Url = 'http://localhost:5174/'
 const placeOrder = async (req, res, next) => {
-    console.log('stripe   sss', process.env.STRIPE_SECRETE_KEY)
+    // console.log('stripe   sss', process.env.STRIPE_SECRETE_KEY)
     try {
         console.log('bodyyyyyyy', req.body)
         const { items, amount, userId, address } = req.body;
