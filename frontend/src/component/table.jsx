@@ -151,8 +151,8 @@ export default function StickyHeadTable({ data }) {
                                     {column.label == "Id" ? (
                                       <Avatar
                                         alt="Remy Sharp"
-                                        src="/static/images/avatar/1.jpg"
-                                      />
+                                        // src="/static/images/avatar/2.jpg"
+                                      >{row.name.slice(0,2).toUpperCase()}</Avatar>
                                     ) : null}
                                     <span>{value}</span>
                                     {column.label == "Role" ? (
@@ -220,8 +220,8 @@ export const EditData = ({
   const [role, setRole] = React.useState("");
   React.useEffect(() => {});
   const updateUser = async () => {
-    const { email } = userSelected;
-    const res = await patchRequest("/updateUser", { role: role, email: email });
+    const { email ,_id} = userSelected;
+    const res = await patchRequest("/updateUser", { role: role, email: email , userId:_id});
     if (res.success) {
       console.log("res Ifff", userSelected);
       userSelected.role = role;
