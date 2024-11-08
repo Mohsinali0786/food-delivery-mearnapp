@@ -23,6 +23,9 @@ export default function LoginPopUp({ setShowLogin }) {
     if (res && res.success) {
       setToken(res.token);
       localStorage.setItem("token", res.token);
+      if(currState != "Sign Up"){
+        localStorage.setItem("loginInfo", JSON.stringify(res.user));
+      }
       setLoginData(res.user)
       setShowLogin(false);
       // console.log(res.user.cart,'res.user.cart')
