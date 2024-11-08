@@ -42,7 +42,7 @@ export default function PlaceOrder() {
       items: orderItems,
       amount: getCartTotalAmount() + 2,
     };
-    let res = await axios.post(url + "/api/placeOrder", orderData, {
+    let res = await axios.post(url + "/placeOrder", orderData, {
       headers: { token },
     });
     console.log("res.data ====>", res.data);
