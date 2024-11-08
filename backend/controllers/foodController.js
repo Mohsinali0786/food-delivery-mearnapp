@@ -34,13 +34,13 @@ const addFood = async (req, res, next) => {
     try {
         console.log(req.body)
         // const { name, description, price, category, userId } = req.body;
-        const {description , productName , quantity , category ,price} = req.body;
+        const { description, productName, quantity, category, price } = req.body;
         const uploadRes = await cloudinary.uploader.upload(req.body.image, { upload_preset: "onlineShop" });
         if (uploadRes) {
             const product = new Food({
                 description,
                 image: uploadRes,
-                name:productName,
+                name: productName,
                 category,
                 quantity,
                 price: price,
@@ -64,7 +64,27 @@ const addFood = async (req, res, next) => {
     }
 
 }
+const updateFoodQuantity = async (req, res, next) => {
 
+    try {
+        console.log(req.body)
+        const { foodId, quantity } = req.body;
+        await Food.findByIdAndUpdate(req.params.id, { quantity: quantity })
+        res.json({
+            success: true,
+            message: "Update Quantity successfully"
+        })
+
+    } catch (err) {
+        console.log('Errrrr', err)
+        res.json({
+            success: false,
+            message: "Error",
+            error: err
+        })
+    }
+
+}
 
 const addCategory = async (req, res, next) => {
     try {
@@ -77,7 +97,7 @@ const addCategory = async (req, res, next) => {
         await category.save();
         return res
             .status(201)
-            .json({ message: "Products Category added successfully" });
+            .json({ success: true, message: "Products Category added successfully" });
     } catch (err) {
         next(err);
     }
@@ -89,6 +109,20 @@ const getCategory = async (req, res, next) => {
         return res
             .status(201)
             .json({ message: "Products Category get successfully", allCategories });
+    } catch (err) {
+        next(err);
+    }
+}
+const removeCategory = async (req, res, next) => {
+    console.log(req.params.id)
+    try {
+        let result = await foodCategory.findByIdAndDelete(req.params.id);
+        console.log(result, 'resssss')
+        if (result) {
+            return res
+                .status(201)
+                .json({ message: "Products Category removed successfully" });
+        }
     } catch (err) {
         next(err);
     }
@@ -106,7 +140,7 @@ const getAllItems = async (req, res, next) => {
 }
 
 const removeItem = async (req, res, next) => {
-    console.log(req.params,'params')
+    console.log(req.params, 'params')
     try {
         await Food.findByIdAndDelete(req.params.id)
         return res.status(201).json({ success: true, message: 'Food Removed' });
@@ -224,6 +258,7 @@ const getUserFavorites = async (req, res, next) => {
 };
 module.exports = {
     addFood, addFoodByAdmin, getAllItems, getFoodById,
+    updateFoodQuantity,
     removeFromFavorites,
     addToFavorites,
     getUserFavorites,
@@ -231,5 +266,6 @@ module.exports = {
     placeOrder,
     addCategory,
     getCategory,
+    removeCategory,
     removeItem,
 }
