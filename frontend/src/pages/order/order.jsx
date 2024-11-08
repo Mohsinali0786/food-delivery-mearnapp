@@ -37,7 +37,7 @@ export default function PlaceOrder() {
       }
     });
     let orderData = {
-      userId: loginData._id,
+      userId: JSON.parse(localStorage.getItem("loginInfo"))?._id,
       address: data,
       items: orderItems,
       amount: getCartTotalAmount() + 2,
