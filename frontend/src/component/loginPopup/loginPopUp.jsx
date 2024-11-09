@@ -3,9 +3,14 @@ import { useContext, useState } from "react";
 import "./loginPopUp.css";
 import { patchRequest } from "../../utils/service";
 import { StoreContext } from "../../context/storeContext";
+import { toast } from "react-toastify";
+import Spinner from "../spinner/spinner";
 export default function LoginPopUp({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
-  const { token, setToken ,setCartItems , setLoginData ,loginData} = useContext(StoreContext);
+  const [loginAction, setLoginAction] = useState(false);
+
+  const { token, setToken, setCartItems, setLoginData, loginData } =
+    useContext(StoreContext);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -14,6 +19,7 @@ export default function LoginPopUp({ setShowLogin }) {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    setLoginAction(true)
     let res = {};
     if (currState == "Sign Up") {
       res = await patchRequest("/signUp", data);
@@ -22,20 +28,23 @@ export default function LoginPopUp({ setShowLogin }) {
     }
     if (res && res.success) {
       setToken(res.token);
+      setCurrState('Login')
       localStorage.setItem("token", res.token);
-      if(currState != "Sign Up"){
+      if (currState != "Sign Up") {
         localStorage.setItem("loginInfo", JSON.stringify(res.user));
+        setShowLogin(false);
       }
-      setLoginData(res.user)
-      setShowLogin(false);
+      setLoginData(res.user);
       // console.log(res.user.cart,'res.user.cart')
       // setCartItems(res.user.cart)
     }
     if (res && res.message) {
-      alert(res.message);
+      // alert(res.message);
+      toast.success(res.message);
     }
+    setLoginAction(false)
   };
-  console.log(loginData,'loginData in Sign in')
+  console.log(loginData, "loginData in Sign in");
   return (
     <div className="login-popup">
       <form
@@ -78,9 +87,12 @@ export default function LoginPopUp({ setShowLogin }) {
             required
           />
         </div>
-        <button type="submit">
-          {currState == "Sign Up" ? "Create Account" : "LogIn"}
+        {/* <div className="loginActionBtn"> */}
+        <button type="submit" className="loginActionBtn">
+          <p className="loginActionTxt">{currState == "Sign Up" ? "Create Account" : "LogIn"}</p>
+          {loginAction ? <Spinner /> : null}
         </button>
+        {/* </div> */}
         <div className="login-popup-condition">
           <input type="checkbox" required />
           <p>By continuing, I agree to the terms of use & privacy policy </p>
