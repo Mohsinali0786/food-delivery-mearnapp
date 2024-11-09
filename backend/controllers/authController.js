@@ -31,7 +31,7 @@ const Signup = async (req, res, next) => {
     const createdUser = await user.save();
     console.log('createdUser', createdUser)
     let token = generateToken(user._id)
-    return res.status(201).json({success:true , token, user });
+    return res.status(201).json({success:true , token, user ,message:'Sign Up Successfully'});
   } catch (err) {
     res.json({success:false ,message:"Error"})
     next(err);
