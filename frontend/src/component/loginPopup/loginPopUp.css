@@ -63,3 +63,11 @@
     cursor: pointer;
 
 }
+.loginActionBtn{
+    display: flex;
+    justify-content: center;
+    /* padding: 0px 20px; */
+}
+.loginActionTxt{
+    margin-right: 20px;
+}
