@@ -11,7 +11,7 @@ import AppDownload from './appDownload/appDownload'
 import ProductForm from './addProductForm/addProduct'
 import CategoryForm from './categoryForm/category'
 import BasicModal from './modall/modal'
-
+import Spinner from './spinner/spinner'
 export{
     Navbar,
     StickyHeadTable,
@@ -25,6 +25,7 @@ export{
     AppDownload,
     ProductForm,
     CategoryForm,
-    BasicModal
+    BasicModal,
+    Spinner
 }
 
