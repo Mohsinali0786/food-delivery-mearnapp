@@ -25,9 +25,16 @@
     align-items: center;
     color: black;
 }
-.cancelIcon{
+.addProductFormCancelIcon{
     cursor: pointer;
-    width: 16px;
+    /* width: 13px; */
+    padding: 1px;
+    position: relative;
+    bottom: 30px;
+    left: 50px;
+    background-color: red;
+    border-radius: 100%;
+    color: white;
 }
 .addProductForm-popup-input{
     display: flex;
@@ -47,4 +54,13 @@
     background-color: tomato;
     color: white;
     cursor: pointer;
+}
+.addProductBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.addProductBtn p{
+    margin-right: 20px;
+    font-size: 16px;
 }

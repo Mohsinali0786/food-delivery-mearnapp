@@ -47,21 +47,32 @@
 }
 .explore-menu-list .active{
     border: 4px solid tomato;
-    padding:2px;
+    padding:6px;
 }
 .removeIcon{
     color: tomato !important;
     position: relative;
-    bottom: 40px;
-    left: 110px;
+    top: 22px;
+    left: 40px;
     cursor: pointer;
 }
-.removeIconForActive{
+/* .removeIconForActive{
     color: tomato !important;
-    position: relative;
-    bottom: 53px;
-    left: 110px;
+    position: fixed;
+    top: 20px;
+    left: 25px;
     cursor: pointer;
+} */
+.chips{
+    background-color: black;
+    color: white !important;
+    padding: 8px;
+    border-radius: 8px;
+    width: 70px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    
 }
 
 

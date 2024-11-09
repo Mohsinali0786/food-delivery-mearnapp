@@ -36,8 +36,8 @@ export default function ExploreMenu({category,setCategory}) {
           return (
             <div onClick={()=>setCategory((prev)=>prev==item?.name ? 'All':item?.name)} key={index} className="explore-menu-item-list">
              <CancelIcon className={category == item?.name ? "removeIconForActive" : 'removeIcon'} onClick={()=>{deleteCategory(item?._id)}}/>
-             <img className={category == item?.name ? "active" : ""} src={sampleImg}/>
-              <p>{item.name}</p>
+             {/* <img className={category == item?.name ? "active " : ""} src={sampleImg}/> */}
+              <p className={category == item?.name ? "active chips" : "chips"}>{item.name}</p>
             </div>
           );
         })}

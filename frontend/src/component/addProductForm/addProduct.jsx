@@ -4,6 +4,8 @@ import "./addProduct.css";
 import { patchRequest, postRequest } from "../../utils/service";
 import { StoreContext } from "../../context/storeContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Spinner from "../spinner/spinner";
 export default function ProductForm({ setShowProductForm }) {
   const [currState, setCurrState] = useState("Sign Up");
   const { token, setToken, setCartItems, setLoginData, loginData, url } =
@@ -11,10 +13,12 @@ export default function ProductForm({ setShowProductForm }) {
   const [data, setData] = useState({});
 
   const [category, setCategory] = useState([]);
+  const [addProduct, setAddProduct] = useState(false);
   const [file, setFile] = useState();
 
   const onAdd = async (e) => {
     e.preventDefault();
+    setAddProduct(true);
     let res = {};
     console.log(data);
     // formData.append("productName",data?.productName)
@@ -40,11 +44,11 @@ export default function ProductForm({ setShowProductForm }) {
     console.log(result.data);
 
     console.log(res, "errrrr");
-    if (res && res.success) {
+    if (result.data && result.data.success) {
+      setShowProductForm(false);
+      if (result.data.message) toast.success(result.data.message);
     }
-    if (res && res.message) {
-      alert(res.message);
-    }
+    setAddProduct(FontFaceSetLoadEvent);
   };
   const transformFile = async (file) => {
     const reader = new FileReader();
@@ -57,13 +61,11 @@ export default function ProductForm({ setShowProductForm }) {
     }
   };
 
-
-
   useEffect(() => {
     getFoodCategory();
   }, []);
   async function getFoodCategory() {
-    const data = await axios.get(`${url}/api/get-category`);
+    const data = await axios.get(`${url}/get-category`);
     setCategory(data?.data?.allCategories);
     console.log(data?.data?.allCategories);
     // return data?.data?.allCategories
@@ -79,7 +81,7 @@ export default function ProductForm({ setShowProductForm }) {
         <div className="addProductForm-popup-title">
           <h2>Add Your Product</h2>
           <ClearIcon
-            className="cancelIcon"
+            className="addProductFormCancelIcon"
             onClick={() => setShowProductForm(false)}
           />
         </div>
@@ -123,7 +125,11 @@ export default function ProductForm({ setShowProductForm }) {
             onChange={(e) =>
               setData({
                 ...data,
-                price: { off: data?.price?.off, org: e.target.value, mrp: e.target.value },
+                price: {
+                  off: data?.price?.off,
+                  org: e.target.value,
+                  mrp: e.target.value,
+                },
               })
             }
             placeholder="Price"
@@ -136,7 +142,13 @@ export default function ProductForm({ setShowProductForm }) {
             onChange={(e) =>
               setData({
                 ...data,
-                price: { off: e.target.value, org: data?.price?.org, mrp: (data?.price?.org-(data?.price?.org*e.target.value/100)) },
+                price: {
+                  off: e.target.value,
+                  org: data?.price?.org,
+                  mrp:
+                    data?.price?.org -
+                    (data?.price?.org * e.target.value) / 100,
+                },
               })
             }
             placeholder="Discount %"
@@ -155,7 +167,10 @@ export default function ProductForm({ setShowProductForm }) {
             })}
           </select>
         </div>
-        <button type="submit">Add</button>
+        <button className="addProductBtn" type="submit">
+          <p>Add</p>
+          {addProduct ? <Spinner/> : null}
+        </button>
       </form>
     </div>
   );

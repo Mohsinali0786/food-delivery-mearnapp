@@ -25,9 +25,16 @@
     align-items: center;
     color: black;
 }
-.cancelIcon{
+.categoryCancelIcon{
     cursor: pointer;
-    width: 16px;
+    /* width: 13px; */
+    padding: 1px;
+    position: relative;
+    bottom: 30px;
+    left: 50px;
+    background-color: red;
+    border-radius: 100%;
+    color: white;
 }
 .categoryForm-popup-input{
     display: flex;

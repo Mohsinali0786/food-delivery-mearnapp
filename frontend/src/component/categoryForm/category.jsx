@@ -29,6 +29,7 @@ export default function CategoryForm({ setShowCategoryForm }) {
     console.log(res, "errrrr");
     if (res.data && res.data.success) {
       // toast.success(res.data.message)
+      setShowCategoryForm(false)
     }
     if (res && res.data.message) {
       toast.success(res.data.message)
@@ -49,7 +50,7 @@ export default function CategoryForm({ setShowCategoryForm }) {
         <div className="categoryForm-popup-title">
           <h2>Add Your Product Category</h2>
           <ClearIcon
-            className="cancelIcon"
+            className="categoryCancelIcon"
             onClick={() => setShowCategoryForm(false)}
           />
         </div>
