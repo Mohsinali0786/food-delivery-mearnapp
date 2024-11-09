@@ -70,20 +70,20 @@ export default function ProductForm({ setShowProductForm }) {
   }
   console.log(loginData, "loginData in Sign in");
   return (
-    <div className="login-popup">
+    <div className="addProductForm-popup">
       <form
         action=""
         onSubmit={(e) => onAdd(e)}
-        className="login-popup-container"
+        className="addProductForm-popup-container"
       >
-        <div className="login-popup-title">
+        <div className="addProductForm-popup-title">
           <h2>Add Your Product</h2>
           <ClearIcon
             className="cancelIcon"
             onClick={() => setShowProductForm(false)}
           />
         </div>
-        <div className="login-popup-input">
+        <div className="addProductForm-popup-input">
           <input
             type="file"
             filename={file}
