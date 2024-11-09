@@ -40,20 +40,20 @@ export default function CategoryForm({ setShowCategoryForm }) {
   }, []);
  
   return (
-    <div className="login-popup">
+    <div className="categoryForm-popup">
       <form
         action=""
         onSubmit={(e) => onAdd(e)}
-        className="login-popup-container"
+        className="categoryForm-popup-container"
       >
-        <div className="login-popup-title">
+        <div className="categoryForm-popup-title">
           <h2>Add Your Product Category</h2>
           <ClearIcon
             className="cancelIcon"
             onClick={() => setShowCategoryForm(false)}
           />
         </div>
-        <div className="login-popup-input">
+        <div className="categoryForm-popup-input">
           <input
             type="text"
             name="Product Category"

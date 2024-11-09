@@ -1,4 +1,4 @@
-.login-popup{
+.categoryForm-popup{
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -6,9 +6,9 @@
     display: grid;
     background-color: #00000090;
 }
-.login-popup-container{
+.categoryForm-popup-container{
     place-self: center;
-    width: max(23vw,330px);
+    /* width: max(23vw,330px); */
     color: silver;
     background-color: white;
     display: flex;
@@ -19,7 +19,7 @@
     font-size: 14px;
     animation: fadeIn 0.5s;
 }
-.login-popup-title{
+.categoryForm-popup-title{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,18 +29,18 @@
     cursor: pointer;
     width: 16px;
 }
-.login-popup-input{
+.categoryForm-popup-input{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.login-popup-input input{
+.categoryForm-popup-input input{
     outline: none;
     border: 1px solid #c9c9c9;
     padding: 10px;
     border-radius: 4px;
 }
-.login-popup-container button{
+.categoryForm-popup-container button{
     border: none;
     padding: 10px;
     border-radius: 4px;
@@ -48,18 +48,11 @@
     color: white;
     cursor: pointer;
 }
-.login-popup-condition{
-    display: flex;
-    align-items: start;
-    gap: 8px;
-    margin-top: -15px;
-}
-.login-popup-condition input{
-    margin-top: 5px;
-}
-.login-popup p span{
+
+
+/* .categoryForm-popup p span{
     color: tomato;
     font-weight: 500;
     cursor: pointer;
 
-}
+} */
