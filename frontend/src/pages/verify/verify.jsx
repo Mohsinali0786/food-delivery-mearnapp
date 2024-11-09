@@ -11,7 +11,7 @@ export default function VerifyOrder() {
   const orderId = searchParams.get("orderId");
   const { url } = useContext(StoreContext);
   const verifyPayment = async (event) => {
-    let res = await axios.post(url + "/api/verifyOrder", { success, orderId });
+    let res = await axios.post(url + "/verifyOrder", { success, orderId });
     console.log("res.data ====>", res.data);
     if (res.data.success) {
       navigate("/myOrders");
