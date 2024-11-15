@@ -8,7 +8,7 @@ const orderModels = require('../models/orderModels');
 require('dotenv').config();
 
 // console.log(`process.env.STRIPE_SECRETE_KEY  ${process.env.STRIPE_SECRETE_KEY}`)
-const stripe = new Stripe(`${process.env.STRIPE_SECRETE_KEY}`)
+const stripe = new Stripe(process.env.STRIPE_SECRETE_KEY)
 
 const frontend_Url = 'https://food-delivery-f-mearnapp.vercel.app/'
 const placeOrder = async (req, res, next) => {
