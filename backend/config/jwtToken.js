@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken')
-let SECRETE_KEY = `${process.env.JWT}`
+let SECRETE_KEY = process.env.JWT
 
 
 const generateToken = (userId) => {
