@@ -68,11 +68,11 @@ const updateFoodQuantity = async (req, res, next) => {
 
     try {
         console.log(req.body)
-        const { foodId, quantity } = req.body;
-        await Food.findByIdAndUpdate(req.params.id, { quantity: quantity })
+        const { foodId, quantity ,price } = req.body;
+        await Food.findByIdAndUpdate(req.params.id, { quantity: quantity ,price})
         res.json({
             success: true,
-            message: "Update Quantity successfully"
+            message: `Update ${quantity ? 'Quantity' : 'Price'} successfully`
         })
 
     } catch (err) {

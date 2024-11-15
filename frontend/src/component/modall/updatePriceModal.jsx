@@ -5,7 +5,8 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import Checkbox from "@mui/material/Checkbox";
-
+import { postRequest } from "../../utils/service";
+import { toast } from "react-toastify";
 import "./modal.css";
 const style = {
   position: "absolute",
@@ -27,10 +28,24 @@ export default function UpdatePriceModal({
   foodId,
 }) {
   const [open, setOpen] = React.useState(false);
+  const [price, setPrice] = React.useState({
+    off: 0,
+    org: 0,
+    mrp:0,
+    //   data?.price?.org -
+    //   (data?.price?.org * e.target.value) / 100,
+  });
   const [discount, setDiscount] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const update = async(id) =>{
+    console.log('id',id)
+    const res = await postRequest(`/updateQuantity/${id}`,{price:{org:price?.org,off:price?.off,mrp:price.off > 0 ? 
+        Math.ceil(price?.org -
+          (price?.org * price?.off) / 100): price.org,}})
+    console.log('resssssssss',res)
+    toast.success(res.message)
+  }
   return (
     <div>
       <Button className="p-0 m-0" onClick={handleOpen}>
@@ -53,7 +68,7 @@ export default function UpdatePriceModal({
             variant="outlined"
             placeholder="Set Price"
             fullWidth={true}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setPrice({...price,org:e.target.value})}
           />
           <div className="discountBox">
             <div className="">
@@ -72,7 +87,9 @@ export default function UpdatePriceModal({
             </div>
             {discount ? (
                 
-                <input  placeholder="Discount %"/>
+                <input  placeholder="Discount %"
+                onChange={(e) => setPrice({...price,off:e.target.value})}
+/>
             //   <TextField
             //     className="mt-20"
             //     id="outlined-basic"
@@ -87,7 +104,7 @@ export default function UpdatePriceModal({
           <Button
             variant="mt-20 contained"
             onClick={() => {
-              onOk(foodId);
+              update(foodId);
               handleClose();
             }}
           >
