@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { deleteRequest, postRequest } from "../../utils/service";
 import { getAllFoods } from "../../utils/commonMethods";
-import { BasicModal } from "../../component";
+import { BasicModal , UpdatePriceModal } from "../../component";
 import { toast } from "react-toastify";
 export default function Menu() {
   const { token, url, loginData, allItems, setAllItems } =
@@ -83,7 +83,10 @@ export default function Menu() {
                     <div className="cart-items-title cart-items-item">
                       <img src={item?.image?.url} alt="" />
                       <p>{item?.name}</p>
-                      <p>${item?.price?.mrp}</p>
+                      <div>
+                      <p >${item?.price?.mrp}</p>
+                      <UpdatePriceModal title='Set' header='Set Price' onOk={update} setQuantity={setQuantity} foodId={item?._id}/>
+                      </div>
                       <div className="d-flex">
                         <p>{item?.quantity}</p>
                         <BasicModal title='Add' header='Add Quantity' onOk={update} setQuantity={setQuantity} foodId={item?._id}/>

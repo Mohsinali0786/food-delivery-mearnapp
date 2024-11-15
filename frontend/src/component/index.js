@@ -11,6 +11,7 @@ import AppDownload from './appDownload/appDownload'
 import ProductForm from './addProductForm/addProduct'
 import CategoryForm from './categoryForm/category'
 import BasicModal from './modall/modal'
+import UpdatePriceModal from './modall/updatePriceModal'
 import Spinner from './spinner/spinner'
 export{
     Navbar,
@@ -26,6 +27,7 @@ export{
     ProductForm,
     CategoryForm,
     BasicModal,
+    UpdatePriceModal,
     Spinner
 }
 
