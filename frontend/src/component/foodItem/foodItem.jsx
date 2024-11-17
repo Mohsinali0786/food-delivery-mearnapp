@@ -3,11 +3,14 @@ import { Rating } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {
   FavoriteBorder,
+  Favorite,
   RemoveCircleOutline,
   AddCircleOutlineIcon,
 } from "@mui/icons-material";
-import { useContext, useState } from "react";
+import { toast } from "react-toastify";
+import { useContext, useState ,useEffect} from "react";
 import { StoreContext } from "../../context/storeContext";
+import { getRequest, postRequest } from "../../utils/service";
 const FoodItem = ({
   key,
   id,
@@ -19,11 +22,33 @@ const FoodItem = ({
   category,
 }) => {
   const [itemCount, setItemCount] = useState(0);
+  const [favourite, setFavourite] = useState(false);
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
   console.log(image, "image", id);
   console.log(!cartItems, "!cartItem[id]");
-
+  const addToFavourite = async (itemId) => {
+    console.log("localStorage.getItem", localStorage.getItem("token"));
+    let res = await postRequest(
+      "/favorite",
+      { productId: itemId },
+      localStorage.getItem("token")
+    );
+    if (!res.success) {
+      toast.error(res.message);
+    }
+  };
+  const getUserFavourite = async (itemId) => {
+    let res = await getRequest("/favorite",localStorage.getItem("token"));
+    if (res && !res.success) {
+      toast.error(res.message);
+    }
+  };
+  useEffect(() => {
+    let loginUserInfo = JSON.parse(localStorage.getItem("loginInfo"))
+    console.log('loginUserInfo',loginUserInfo)
+    getUserFavourite();
+  }, []);
   return (
     <div className="food-item">
       <div className="food-item-image-container">
@@ -51,17 +76,37 @@ const FoodItem = ({
         <div className="food-item-info">
           {quantity < 1 ? <p className="outOfStock">Out of Stock</p> : null}
           <div className="food-item-name-rating">
-            <p>{name}</p>
+            <p>{name.slice(0, 1).toUpperCase() + name.slice(1)}</p>
             {/* <img src="" alt="" /> */}
             <Rating size="small" name="read-only" value={4} readOnly />
           </div>
           <div>
             <div className="categoryChipWrapper">
               <div>
-              <p className="categoryChipTitle">Category <span className="categoryChipText">{category}</span></p>
-              <p ></p>
+                <p className="categoryChipTitle">
+                  Category{" "}
+                  <span className="categoryChipText">
+                    {category.slice(0, 1).toUpperCase() + category.slice(1)}
+                  </span>
+                </p>
+                <p></p>
               </div>
-              <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
+              {!favourite && !JSON.parse(localStorage.getItem("loginInfo"))?.favourites.includes(id)? (
+                <FavoriteBorder
+                  sx={{ color: "inherit", fontSize: "28px", color: "red" }}
+                  onClick={() => {
+                    setFavourite(true);
+                    addToFavourite(id);
+                  }}
+                />
+              ) : (
+                <Favorite
+                  sx={{ color: "inherit", fontSize: "28px", color: "red" }}
+                  onClick={() => {
+                    setFavourite(false);
+                  }}
+                />
+              )}
             </div>
           </div>
           <p className="food-item-description">{description}</p>

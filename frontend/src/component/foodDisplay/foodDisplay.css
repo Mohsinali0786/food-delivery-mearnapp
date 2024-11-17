@@ -41,7 +41,7 @@
 .searchBar select{
     border: none;
     padding: 7px;
-    background-color: black;
+    background-color: red;
     color: white;
 
 }
@@ -49,8 +49,4 @@
     outline: none;
     /* color: white; */
 
-}
-.searchButton{
-    color:  white !important;
-    background-color: red !important;
 }

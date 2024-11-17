@@ -91,7 +91,7 @@ const searchFood = async (req, res, next) => {
         console.log(req.body,'SearchFood')
         const {name,value } = req.body;
         let result = await Food.find({
-            [name]:{$regex:value}
+            [name]:{$regex:value.toLowerCase()}
         })
         console.log('res =====>',res)
         res.json({
@@ -250,10 +250,15 @@ const removeFromFavorites = async (req, res, next) => {
 };
 
 const addToFavorites = async (req, res, next) => {
+    console.log('Jwt JwtJwtJwtJwtJwtJwtJwt',req.user)
+    console.log('req.body',req.body)
+
     try {
         const { productId } = req.body;
+        console.log('req.user',req.user)
         const userJWT = req.user;
-        const user = await User.findById(userJWT.id);
+        console.log('user',userJWT)
+        const user = await User.findById(userJWT);
 
         if (!user.favourites.includes(productId)) {
             user.favourites.push(productId);
@@ -270,7 +275,8 @@ const addToFavorites = async (req, res, next) => {
 
 const getUserFavorites = async (req, res, next) => {
     try {
-        const userId = req.user.id;
+        const userId = req.user;
+        console.log(req.user,'req.user Get')
         const user = await User.findById(userId).populate("favourites").exec();
         if (!user) {
             return next(createError(404, "User not found"));
