@@ -85,6 +85,31 @@ const updateFoodQuantity = async (req, res, next) => {
     }
 
 }
+const searchFood = async (req, res, next) => {
+
+    try {
+        console.log(req.body,'SearchFood')
+        const {name,value } = req.body;
+        let result = await Food.find({
+            [name]:{$regex:value}
+        })
+        console.log('res =====>',res)
+        res.json({
+            success: true,
+            data:result
+            // message: `Update ${quantity ? 'Quantity' : 'Price'} successfully`
+        })
+
+    } catch (err) {
+        console.log('Errrrr', err)
+        res.json({
+            success: false,
+            message: "Error",
+            error: err
+        })
+    }
+
+}
 
 const addCategory = async (req, res, next) => {
     try {
@@ -258,6 +283,7 @@ const getUserFavorites = async (req, res, next) => {
 };
 module.exports = {
     addFood, addFoodByAdmin, getAllItems, getFoodById,
+    searchFood,
     updateFoodQuantity,
     removeFromFavorites,
     addToFavorites,

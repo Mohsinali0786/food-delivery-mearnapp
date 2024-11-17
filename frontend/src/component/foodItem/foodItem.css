@@ -76,7 +76,21 @@
   text-align: right;
   font-weight: bold;
 }
+.categoryChipWrapper{
+display: flex;
+justify-content: space-between;
+}
 
+.categoryChipTitle{
+font-size: 13px;
+
+}
+.categoryChipText{
+  background-color: red;
+  color: whitesmoke;
+  padding: 5px;
+  border-radius: 10px;
+}
 
 
 

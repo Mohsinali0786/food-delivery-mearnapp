@@ -1,11 +1,23 @@
 import "./foodItem.css";
 import { Rating } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import {
+  FavoriteBorder,
+  RemoveCircleOutline,
+  AddCircleOutlineIcon,
+} from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
-const FoodItem = ({ key, id, name, image, price, description, quantity }) => {
+const FoodItem = ({
+  key,
+  id,
+  name,
+  image,
+  price,
+  description,
+  quantity,
+  category,
+}) => {
   const [itemCount, setItemCount] = useState(0);
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
@@ -17,34 +29,40 @@ const FoodItem = ({ key, id, name, image, price, description, quantity }) => {
       <div className="food-item-image-container">
         {/* <img src={`${url}/images/${image}`} alt="" className="food-item-img" /> */}
         <img src={image} alt="" className="food-item-img" />
-        {
-          quantity > 0 ? 
+        {quantity > 0 ? (
           cartItems && !cartItems[id] ? (
             <AddIcon onClick={() => addToCart(id)} className="add" />
           ) : (
             <div className="food-item-counter">
-              <AddCircleOutlineIcon
+              <RemoveCircleOutline
                 onClick={() => addToCart(id, quantity)}
                 className="addItemsIcon"
                 sx={{ backgroundColor: "green" }}
               />
               <p>{cartItems[id]}</p>
-              <RemoveCircleOutlineIcon
+              <RemoveCircleOutline
                 onClick={() => removeFromCart(id)}
                 sx={{ backgroundColor: "red" }}
                 className="addItemsIcon"
               />
             </div>
           )
-          :
-          null
-        }
+        ) : null}
         <div className="food-item-info">
-            { quantity < 1 ? <p className="outOfStock">Out of Stock</p> : null}
+          {quantity < 1 ? <p className="outOfStock">Out of Stock</p> : null}
           <div className="food-item-name-rating">
             <p>{name}</p>
             {/* <img src="" alt="" /> */}
             <Rating size="small" name="read-only" value={4} readOnly />
+          </div>
+          <div>
+            <div className="categoryChipWrapper">
+              <div>
+              <p className="categoryChipTitle">Category <span className="categoryChipText">{category}</span></p>
+              <p ></p>
+              </div>
+              <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
+            </div>
           </div>
           <p className="food-item-description">{description}</p>
           <div className="d-flex justify-content-between">

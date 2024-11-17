@@ -1,7 +1,7 @@
 const express =require('express')
 const multer  = require('multer')
 const router = express.Router()
-const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory, removeItem, removeCategory, updateFoodQuantity} = require('..//controllers/foodController')
+const {addFoodByAdmin ,addFood,getAllItems ,getFoodById,addToFavorites,getUserFavorites,removeFromFavorites,getAllOrders,placeOrder, addCategory, getCategory, removeItem, removeCategory, updateFoodQuantity, searchFood} = require('..//controllers/foodController')
 const {verifyToken} = require('../middleWare/verifyUser')
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -17,7 +17,7 @@ const upload = multer({ storage: storage });
 // router.post('/addFood' , upload.single('image'), addFood)
 router.post('/addFood' , addFood)
 
-
+router.post('/searchBy' , searchFood)
 router.post('/addFoodByAdmin', addFoodByAdmin)
 router.get('/getAllItems', getAllItems)
 router.get('/getFoodById/:id', getFoodById)
