@@ -75,12 +75,13 @@ export const getRequest = async (url,token) => {
 export const patchRequest = async (url,body,token) => {
   const config = {
     headers: {
-      'Authorization': `Bearer ${token}`,
+      // 'Authorization': `Bearer ${token}`,
+      'token':token,
       "Content-Type": "application/json",
     },
   };
   let fullUrl = baseUrl + url
-  const response = await axios.post(fullUrl,body,config)
+  const response = await axios.patch(fullUrl,body,config)
     .then(response => {
       console.log(response,'response');
 
