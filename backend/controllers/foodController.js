@@ -244,7 +244,7 @@ const removeFromFavorites = async (req, res, next) => {
 
         return res
             .status(200)
-            .json({ message: "Product removed from favorites successfully", user });
+            .json({ success:true ,message: "Product removed from favorites successfully", user });
     } catch (err) {
         next(err);
     }

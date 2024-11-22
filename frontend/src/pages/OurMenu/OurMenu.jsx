@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/storeContext";
 import paracel_icon from "../../assets/parcel.avif";
 import AddIcon from "@mui/icons-material/Add";
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import { ProductForm, CategoryForm } from "../../component";
 import "./OurMenu.css";
 import { Button } from "@mui/material";
@@ -69,6 +71,7 @@ export default function Menu() {
             <p>Image</p>
             <p>Title</p>
             <p>Price</p>
+            <p>Discount</p>
             <p>Quantity</p>
             <p>Remove</p>
           </div>
@@ -83,9 +86,13 @@ export default function Menu() {
                     <div className="cart-items-title cart-items-item">
                       <img src={item?.image?.url} alt="" />
                       <p>{item?.name}</p>
-                      <div>
+                      <div className="d-flex">
                       <p >${item?.price?.mrp}</p>
                       <UpdatePriceModal title='Set' header='Set Price' onOk={update} setQuantity={setQuantity} foodId={item?._id}/>
+                      </div>
+                      <div>
+                      {item.price.off > 0 ? <CheckIcon color="success"/> : <CloseIcon color="error"/>}
+
                       </div>
                       <div className="d-flex">
                         <p>{item?.quantity}</p>

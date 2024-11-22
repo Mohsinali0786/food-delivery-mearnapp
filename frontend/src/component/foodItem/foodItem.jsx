@@ -8,7 +8,7 @@ import {
   AddCircleOutlineIcon,
 } from "@mui/icons-material";
 import { toast } from "react-toastify";
-import { useContext, useState ,useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import { StoreContext } from "../../context/storeContext";
 import { getRequest, patchRequest, postRequest } from "../../utils/service";
 const FoodItem = ({
@@ -23,29 +23,41 @@ const FoodItem = ({
 }) => {
   const [itemCount, setItemCount] = useState(0);
   const [favourite, setFavourite] = useState(false);
+  const [favouriteList, setFavouriteList] = useState([]);
+
   const { cartItems, addToCart, removeFromCart, url } =
     useContext(StoreContext);
-  console.log(image, "image", id);
-  console.log(!cartItems, "!cartItem[id]");
+  useEffect(() => {
+    console.log("useEffect favvvvvv", favourite);
+    getUserFavourite();
+  }, [favourite]);
   const addToFavourite = async (itemId) => {
-    console.log("localStorage.getItem", localStorage.getItem("token"));
     let res = await postRequest(
       "/favorite",
       { productId: itemId },
       localStorage.getItem("token")
     );
     if (res.success) {
+      // getUserFavourite()
       toast.success(res.message);
+      getUserFavourite();
+      // setFavourite(true);
     }
   };
-  const getUserFavourite = async (itemId) => {
-    let res = await getRequest("/favorite",localStorage.getItem("token"));
+  const getUserFavourite = async () => {
+    let res = await getRequest("/favorite", localStorage.getItem("token"));
+    console.log(res, "favvvvvv");
     if (res && !res.success) {
-      toast.error(res.message);
+      setFavourite(true)
+      // return toast.error(res.message);
+      let ids =[]
+      for (let i = 0; i < res.length; i++) {
+        ids.push(res[i]._id)
+      }
+      setFavouriteList(ids);
     }
   };
   const removeFromavourite = async (itemId) => {
-    console.log("localStorage.getItem remove", localStorage.getItem("token"));
     let res = await patchRequest(
       "/favorite",
       { productId: itemId },
@@ -53,13 +65,13 @@ const FoodItem = ({
     );
     if (res.success) {
       toast.success(res.message);
+      setFavourite(false);
+      // getUserFavourite();
+      // getUserFavourite();
     }
   };
-  useEffect(() => {
-    let loginUserInfo = JSON.parse(localStorage.getItem("loginInfo"))
-    console.log('loginUserInfo',loginUserInfo)
-    getUserFavourite();
-  }, []);
+  console.log("favvvvv Outside favorite", favouriteList);
+
   return (
     <div className="food-item">
       <div className="food-item-image-container">
@@ -102,11 +114,10 @@ const FoodItem = ({
                 </p>
                 <p></p>
               </div>
-              {!favourite && !JSON.parse(localStorage.getItem("loginInfo"))?.favourites.includes(id)? (
+              {!favouriteList?.includes(id) ? (
                 <FavoriteBorder
                   sx={{ color: "inherit", fontSize: "28px", color: "red" }}
                   onClick={() => {
-                    setFavourite(true);
                     addToFavourite(id);
                   }}
                 />
@@ -114,8 +125,7 @@ const FoodItem = ({
                 <Favorite
                   sx={{ color: "inherit", fontSize: "28px", color: "red" }}
                   onClick={() => {
-                    removeFromavourite(id)
-                    setFavourite(false);
+                    removeFromavourite(id);
                   }}
                 />
               )}
