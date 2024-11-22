@@ -7,11 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   Home,
-  Authentication,
   Cart,
-  Favourites,
-  FoodDetails,
-  FoodListing,
   AllUser,
   PlaceOrder,
   VerifyOrder,
@@ -41,10 +37,7 @@ const url = "https://food-delivery-b-mearnapp.vercel.app/api"
           />
           <Routes>
             <Route path="/" exact element={<Home />} />
-            <Route path="/favorite"  element={<Favourites />} />
             <Route path="/cart"  element={<Cart />} />
-            <Route path="/dishes/:id"  element={<FoodDetails />} />
-            <Route path="/dishes"  element={<FoodListing />} />
             <Route path="/all-users"  element={<AllUser />} />
             <Route path="/all-foods"  element={<FoodDisplay />} />
             <Route path="/cart-items"  element={<Cart />} />
