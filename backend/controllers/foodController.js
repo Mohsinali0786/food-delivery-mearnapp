@@ -237,7 +237,8 @@ const removeFromFavorites = async (req, res, next) => {
     try {
         const { productId } = req.body;
         const userJWT = req.user;
-        const user = await User.findById(userJWT.id);
+        const user = await User.findById(userJWT);
+        console.log(user,'user')
         user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
         await user.save();
 
