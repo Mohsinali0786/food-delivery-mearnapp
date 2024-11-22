@@ -250,14 +250,9 @@ const removeFromFavorites = async (req, res, next) => {
 };
 
 const addToFavorites = async (req, res, next) => {
-    console.log('Jwt JwtJwtJwtJwtJwtJwtJwt',req.user)
-    console.log('req.body',req.body)
-
     try {
         const { productId } = req.body;
-        console.log('req.user',req.user)
         const userJWT = req.user;
-        console.log('user',userJWT)
         const user = await User.findById(userJWT);
 
         if (!user.favourites.includes(productId)) {
@@ -267,7 +262,7 @@ const addToFavorites = async (req, res, next) => {
 
         return res
             .status(200)
-            .json({ message: "Product added to favorites successfully", user });
+            .json({ success:true , message: "Product added to favorites successfully", user });
     } catch (err) {
         next(err);
     }

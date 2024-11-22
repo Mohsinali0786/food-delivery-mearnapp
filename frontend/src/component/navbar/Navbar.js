@@ -201,7 +201,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
         </NavItems>
 
         {isOpen && (
-          <MobileMenu isOpen={isOpen}>
+          <MobileMenu isOpen={isOpen} className="mobileDropDown">
             <Navlink to="/" onClick={() => setIsOpen(false)}>
               Home
             </Navlink>
@@ -222,8 +222,8 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
               </>
             ) : (
               <div className="mbAuthBtnCss">
-                <Button className="authBtnCss" fullWidth >Sign In</Button>
-                <Button className="authBtnCss" fullWidth>Sign Up</Button>
+                {/* <Button className="authBtnCss" fullWidth >Sign In</Button> */}
+                <Button className="authBtnCss" onClick={() => {setShowLogin(true);setIsOpen(false)}} fullWidth>Sign Up</Button>
               </div>
             )}
           </MobileMenu>
@@ -254,7 +254,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
           {/* <Button className="authBtnCss" onClick={()=>setShowLogin(true)}>Sign In</Button> */}
           {
             !token ?
-              <Button className="authBtnCss" onClick={() => setShowLogin(true)}>Sign Up</Button>
+              <Button className="authBtnCss" onClick={() =>setShowLogin(true)}>Sign Up</Button>
               :
               <div className="navbar-profile">
                 {/* <img /> */}

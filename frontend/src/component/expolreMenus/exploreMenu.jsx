@@ -1,14 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { getAllFoods, getFoodCategory } from "../../utils/commonMethods";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import CancelIcon from '@mui/icons-material/Cancel';
-import { getRequest ,deleteRequest } from "../../utils/service";
-import './exploreMenu.css'
-import sampleImg from "../../assets/food.jpg"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CancelIcon from "@mui/icons-material/Cancel";
+import { getRequest, deleteRequest } from "../../utils/service";
+import "./exploreMenu.css";
+import sampleImg from "../../assets/food.jpg";
 import { StoreContext } from "../../context/storeContext";
-export default function ExploreMenu({category,setCategory}) {
+export default function ExploreMenu({ category, setCategory }) {
   const [menuList, setMenuList] = useState([]);
-  const {allCategory,setAllCategory} = useContext(StoreContext)
+  const { allCategory, setAllCategory } = useContext(StoreContext);
   useEffect(() => {
     getAllFoods();
   }, []);
@@ -18,11 +18,10 @@ export default function ExploreMenu({category,setCategory}) {
   };
   const deleteCategory = async (id) => {
     // setLoading(true);
-     await deleteRequest(`/remove-category/${id}`);
-    let res = await getFoodCategory()
-    console.log('getFoodCategory()',res)
-     setAllCategory(res)
-   
+    await deleteRequest(`/remove-category/${id}`);
+    let res = await getFoodCategory();
+    console.log("getFoodCategory()", res);
+    setAllCategory(res);
   };
   return (
     <div className="exploreMenu" id="exploreMenu">
@@ -34,15 +33,35 @@ export default function ExploreMenu({category,setCategory}) {
       <div className="explore-menu-list">
         {allCategory?.map((item, index) => {
           return (
-            <div onClick={()=>setCategory((prev)=>prev==item?.name ? 'All':item?.name)} key={index} className="explore-menu-item-list">
-             <CancelIcon className={category == item?.name ? "removeIconForActive" : 'removeIcon'} onClick={()=>{deleteCategory(item?._id)}}/>
-             {/* <img className={category == item?.name ? "active " : ""} src={sampleImg}/> */}
-              <p className={category == item?.name ? "active chips" : "chips"}>{item.name}</p>
+            <div
+              onClick={() =>
+                setCategory((prev) => (prev == item?.name ? "All" : item?.name))
+              }
+              key={index}
+              className="explore-menu-item-list"
+            >
+              {JSON.parse(localStorage.getItem("loginInfo"))?.role ==
+              "SUPERADMIN_ROLE" ? (
+                <CancelIcon
+                  className={
+                    category == item?.name
+                      ? "removeIconForActive"
+                      : "removeIcon"
+                  }
+                  onClick={() => {
+                    deleteCategory(item?._id);
+                  }}
+                />
+              ) : null}
+              {/* <img className={category == item?.name ? "active " : ""} src={sampleImg}/> */}
+              <p className={category == item?.name ? "active chips" : "chips"}>
+                {item.name}
+              </p>
             </div>
           );
         })}
       </div>
-      <hr/>
+      <hr />
     </div>
   );
 }

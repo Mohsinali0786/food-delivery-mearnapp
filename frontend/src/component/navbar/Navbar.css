@@ -43,3 +43,9 @@
 .navbar-profile-dropdown li p:hover{
     color: tomato !important;
 }
+.mobileDropDown{
+    background-color: #222121;
+}
+.mobileDropDown a{
+ color: white;
+}

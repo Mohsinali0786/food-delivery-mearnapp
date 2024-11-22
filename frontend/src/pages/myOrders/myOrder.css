@@ -35,7 +35,14 @@
     color: #454545;
     font-size: 14px;
 }
-
+.noDataImage{
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+.noDataImage img{
+    width: 300px;
+}
 @media screen and (max-width: 900px) {
     .my-orders-order{
         grid-template-columns: 1fr 2fr 1fr;
