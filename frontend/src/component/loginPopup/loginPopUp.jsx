@@ -1,7 +1,7 @@
 import ClearIcon from "@mui/icons-material/Clear";
 import { useContext, useState } from "react";
 import "./loginPopUp.css";
-import { patchRequest } from "../../utils/service";
+import { postRequest } from "../../utils/service";
 import { StoreContext } from "../../context/storeContext";
 import { toast } from "react-toastify";
 import Spinner from "../spinner/spinner";
@@ -22,9 +22,9 @@ export default function LoginPopUp({ setShowLogin }) {
     setLoginAction(true)
     let res = {};
     if (currState == "Sign Up") {
-      res = await patchRequest("/signUp", data);
+      res = await postRequest("/signUp", data);
     } else {
-      res = await patchRequest("/signIn", data);
+      res = await postRequest("/signIn", data);
     }
     if (res && res.success) {
       setToken(res.token);
