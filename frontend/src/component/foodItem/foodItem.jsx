@@ -10,7 +10,7 @@ import {
 import { toast } from "react-toastify";
 import { useContext, useState ,useEffect} from "react";
 import { StoreContext } from "../../context/storeContext";
-import { getRequest, postRequest } from "../../utils/service";
+import { getRequest, patchRequest, postRequest } from "../../utils/service";
 const FoodItem = ({
   key,
   id,
@@ -42,6 +42,17 @@ const FoodItem = ({
     let res = await getRequest("/favorite",localStorage.getItem("token"));
     if (res && !res.success) {
       toast.error(res.message);
+    }
+  };
+  const removeFromavourite = async (itemId) => {
+    console.log("localStorage.getItem remove", localStorage.getItem("token"));
+    let res = await patchRequest(
+      "/favorite",
+      { productId: itemId },
+      localStorage.getItem("token")
+    );
+    if (res.success) {
+      toast.success(res.message);
     }
   };
   useEffect(() => {
@@ -103,6 +114,7 @@ const FoodItem = ({
                 <Favorite
                   sx={{ color: "inherit", fontSize: "28px", color: "red" }}
                   onClick={() => {
+                    removeFromavourite(id)
                     setFavourite(false);
                   }}
                 />
