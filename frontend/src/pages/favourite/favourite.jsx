@@ -12,14 +12,15 @@ export default function MyFaourites() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if(localStorage.getItem("loginInfo")?._id){
+    const loginInfo = JSON.parse(localStorage.getItem("loginInfo"))
+    if(loginInfo?._id){
       getFavourites()
     }
 },[]);
 const getFavourites = async ()=>{
-    let favouriteData = await getRequest('/favorite',token)
+    let favouriteData = await getRequest('/favorite',localStorage.getItem("token"))
     // console.log(favouriteData.data,'favouriteData')
-    setData(favouriteData.data)
+    if(favouriteData) setData(favouriteData)
   }
   console.log('data',data)
   return (
