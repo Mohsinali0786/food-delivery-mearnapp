@@ -303,7 +303,7 @@ const addToFavorites = async (req, res, next) => {
 const getUserFavorites = async (req, res, next) => {
     try {
         const userId = req.user;
-        // console.log(req.user, 'req.user Get')
+        console.log(req.user, 'req.user Get')
         const user = await User.findById(userId).populate("favourites").exec();
         if (!user) {
             return next(createError(404, "User not found"));

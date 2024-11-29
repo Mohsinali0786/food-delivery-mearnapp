@@ -25,11 +25,13 @@ const FoodItem = ({
   const [favourite, setFavourite] = useState(false);
   const [favouriteList, setFavouriteList] = useState([]);
 
-  const { cartItems, addToCart, removeFromCart, url } =
+  const { cartItems, addToCart, removeFromCart, url} =
     useContext(StoreContext);
   useEffect(() => {
     console.log("useEffect favvvvvv", favourite);
-    getUserFavourite();
+    if(localStorage.getItem("loginInfo")?._id){
+      getUserFavourite();
+    }
   }, [favourite]);
   const addToFavourite = async (itemId) => {
     let res = await postRequest(
