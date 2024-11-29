@@ -49,9 +49,9 @@ export default function ProductForm({ setShowProductForm }) {
     console.log(result.data);
 
     console.log(res, "errrrr");
-    if (result.data && result.data.success) {
+    if (result.success) {
       setShowProductForm(false);
-      if (result.data.message) toast.success(result.data.message);
+      if (result.message) toast.success(result.message);
     }
     setAddProduct(false);
   };
