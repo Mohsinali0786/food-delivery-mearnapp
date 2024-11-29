@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 app.use(cors({
   origin:"https://food-delivery-f-mearnapp.vercel.app",
-  methods:["POST","GET"],
+  methods:["POST","GET","PATCH"],
   credentials:true
 }));
 app.use((req, res, next) => {
