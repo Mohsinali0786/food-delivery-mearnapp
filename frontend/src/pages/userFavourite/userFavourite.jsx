@@ -32,7 +32,7 @@ export default function MyFaourites() {
   return (
     <div className="my-orders">
       {loader ? (
-        <Spinner />
+        <Spinner width={30}/>
       ) : data && data.length > 0 ? (
         <div className="food-display-list">
           {data &&
