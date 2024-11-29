@@ -109,7 +109,7 @@ const FoodItem = ({
                 <p className="categoryChipTitle">
                   Category{" "}
                   <span className="categoryChipText">
-                    {category.slice(0, 1).toUpperCase() + category.slice(1)}
+                    {category?.slice(0, 1).toUpperCase() + category?.slice(1)}
                   </span>
                 </p>
                 <p></p>
