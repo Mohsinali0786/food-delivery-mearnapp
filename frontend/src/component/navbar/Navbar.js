@@ -21,6 +21,7 @@ import TemporaryDrawer from "../drawer";
 import PeopleIcon from '@mui/icons-material/People';
 import { StoreContext } from "../../context/storeContext";
 import { Link } from "react-router-dom";
+import { getAllFoods } from "../../utils/commonMethods";
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
   height: 80px;
@@ -266,7 +267,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                     <Link to="/myOrders" className="text-black">Order</Link>
                   </li>
                   <hr />
-                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/") }}>
+                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/");getAllFoods()}}>
                     {/* <Button > */}
                     <LogoutIcon className="text-tomato" />
                     <p className="text-black">Logout</p>

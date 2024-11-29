@@ -20,20 +20,26 @@ const FoodItem = ({
   description,
   quantity,
   category,
+  rating,
 }) => {
   const [itemCount, setItemCount] = useState(0);
   const [favourite, setFavourite] = useState(false);
   const [favouriteList, setFavouriteList] = useState([]);
 
-  const { cartItems, addToCart, removeFromCart, url} =
+  const { cartItems, addToCart, removeFromCart, url, allItems } =
     useContext(StoreContext);
   useEffect(() => {
     console.log("useEffect favvvvvv", favourite);
-    const loginInfo = localStorage.getItem("loginInfo")
-    if(JSON.parse(loginInfo)?._id){
+    const loginInfo = localStorage.getItem("loginInfo");
+    if (JSON.parse(loginInfo)?._id) {
       getUserFavourite();
     }
-  }, [favourite]);
+  }, [favourite, allItems]);
+  useEffect(() => {
+    if (!localStorage.getItem("loginInfo")) {
+      setFavouriteList([]);
+    }
+  }, [localStorage.getItem("loginInfo")]);
   const addToFavourite = async (itemId) => {
     let res = await postRequest(
       "/favorite",
@@ -51,11 +57,11 @@ const FoodItem = ({
     let res = await getRequest("/favorite", localStorage.getItem("token"));
     console.log(res, "favvvvvv");
     if (res && !res.success) {
-      setFavourite(true)
+      setFavourite(true);
       // return toast.error(res.message);
-      let ids =[]
+      let ids = [];
       for (let i = 0; i < res.length; i++) {
-        ids.push(res[i]._id)
+        ids.push(res[i]._id);
       }
       setFavouriteList(ids);
     }
@@ -104,7 +110,12 @@ const FoodItem = ({
           <div className="food-item-name-rating">
             <p>{name.slice(0, 1).toUpperCase() + name.slice(1)}</p>
             {/* <img src="" alt="" /> */}
-            <Rating size="small" name="read-only" value={4} readOnly />
+            <Rating
+              size="small"
+              name="read-only"
+              value={rating / 20}
+              readOnly
+            />
           </div>
           <div>
             <div className="categoryChipWrapper">
@@ -115,7 +126,7 @@ const FoodItem = ({
                     {category?.slice(0, 1).toUpperCase() + category?.slice(1)}
                   </span>
                 </p>
-                <p></p>
+                <p>Rating{rating}</p>
               </div>
               {!favouriteList?.includes(id) ? (
                 <FavoriteBorder

@@ -20,6 +20,9 @@ export default function FoodDisplay({ category }) {
     console.log("useEffect");
     onSearch()
   }, [searchParams]);
+  // useEffect(() => {
+  //   console.log("useEffect for allItems");
+  // }, [allItems]);
   return (
     <div className="food-display">
       <h2>Top dishes near you</h2>
@@ -61,6 +64,7 @@ export default function FoodDisplay({ category }) {
                     image={item?.image?.url}
                     price={item?.price}
                     category={item?.category}
+                    rating={item?.rating}
                   />
                 );
               }

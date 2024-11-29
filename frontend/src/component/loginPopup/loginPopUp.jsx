@@ -9,7 +9,7 @@ export default function LoginPopUp({ setShowLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
   const [loginAction, setLoginAction] = useState(false);
 
-  const { token, setToken, setCartItems, setLoginData, loginData } =
+  const { token, setToken, setCartItems, setLoginData, loginData , getAllFoods} =
     useContext(StoreContext);
   const [data, setData] = useState({
     name: "",
@@ -27,6 +27,7 @@ export default function LoginPopUp({ setShowLogin }) {
       res = await postRequest("/signIn", data);
     }
     if (res && res.success) {
+      getAllFoods()
       setToken(res.token);
       setCurrState('Login')
       localStorage.setItem("token", res.token);
