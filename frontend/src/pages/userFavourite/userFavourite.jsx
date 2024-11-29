@@ -3,7 +3,7 @@ import { StoreContext } from "../../context/storeContext";
 import paracel_icon from "../../assets/parcel.avif";
 import { Button } from "@mui/material";
 import noData from "../../assets/noData.png";
-import "./favouriteComp.css";
+import "./userFavourite.css";
 import axios from "axios";
 import { FoodItem } from "../../component";
 import { getRequest } from "../../utils/service";
