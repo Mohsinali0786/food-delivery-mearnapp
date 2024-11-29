@@ -1,7 +1,7 @@
 import ClearIcon from "@mui/icons-material/Clear";
 import { useContext, useEffect, useState } from "react";
 import "./addProduct.css";
-import { patchRequest, postRequest } from "../../utils/service";
+import { getRequest, patchRequest, postRequest } from "../../utils/service";
 import { StoreContext } from "../../context/storeContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -65,7 +65,7 @@ export default function ProductForm({ setShowProductForm }) {
     getFoodCategory();
   }, []);
   async function getFoodCategory() {
-    const data = await axios.get(`${url}/get-category`);
+    const data = await getRequest('/get-category')
     setCategory(data?.data?.allCategories);
     console.log(data?.data?.allCategories);
     // return data?.data?.allCategories
