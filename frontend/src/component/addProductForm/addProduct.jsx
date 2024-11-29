@@ -98,7 +98,7 @@ export default function ProductForm({ setShowProductForm }) {
             type="text"
             name="Product name"
             value={data?.productName}
-            onChange={(e) => setData({ ...data, productName: e.target.value })}
+            onChange={(e) => setData({ ...data, productName: (e.target.value).toLowerCase() })}
             placeholder="Product Name"
             required
           />
