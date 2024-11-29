@@ -29,7 +29,8 @@ const FoodItem = ({
     useContext(StoreContext);
   useEffect(() => {
     console.log("useEffect favvvvvv", favourite);
-    if(localStorage.getItem("loginInfo")?._id){
+    const loginInfo = localStorage.getItem("loginInfo")
+    if(JSON.parse(loginInfo)?._id){
       getUserFavourite();
     }
   }, [favourite]);
