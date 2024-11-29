@@ -1,8 +1,8 @@
 // Neer used Only sample 
 
 import axios from 'axios'
-export const baseUrl = "http://localhost:5001/api";
-// export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
+// export const baseUrl = "http://localhost:5001/api";
+export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
 
 
 export const postRequest = async (url, body , token) => {
