@@ -37,7 +37,7 @@ export default function ProductForm({ setShowProductForm }) {
     //   },
     // };
     const result = await postRequest(
-      "http://localhost:5001/api/addFood",
+      "/addFood",
       data,
       token
     );
