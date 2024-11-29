@@ -1,10 +1,14 @@
 const express = require('express')
 var cors = require('cors')
 const bodyParser = require('body-parser')
+const { v2: cloudinary } = require('cloudinary');
 const mongoose = require("mongoose");
 const userRoutes = require('./routes/index')
 require('dotenv').config();
 const app = express()
+app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.json())
 app.use(cors({
   origin:"https://food-delivery-f-mearnapp.vercel.app",
@@ -19,6 +23,7 @@ app.use((req, res, next) => {
     );
     next();
   })
+app.use(cors())
   app.use("/api",userRoutes)
 
 
