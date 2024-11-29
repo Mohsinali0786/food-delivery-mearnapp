@@ -53,7 +53,7 @@ export default function ProductForm({ setShowProductForm }) {
       setShowProductForm(false);
       if (result.data.message) toast.success(result.data.message);
     }
-    setAddProduct(FontFaceSetLoadEvent);
+    setAddProduct(false);
   };
   const transformFile = async (file) => {
     const reader = new FileReader();
