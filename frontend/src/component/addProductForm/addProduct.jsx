@@ -29,18 +29,23 @@ export default function ProductForm({ setShowProductForm }) {
     // JSON.stringify(formData)
     // setData({...data,...formData})
     // res = await postRequest("/addFood", formData, token);
-    const config = {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Access-Control-Allow-Origin": "*",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const result = await axios.post(
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/x-www-form-urlencoded",
+    //     "Access-Control-Allow-Origin": "*",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // };
+    const result = await postRequest(
       "http://localhost:5001/api/addFood",
       data,
-      config
+      token
     );
+    // const result = await axios.post(
+    //   "http://localhost:5001/api/addFood",
+    //   data,
+    //   config
+    // );
     console.log(result.data);
 
     console.log(res, "errrrr");
@@ -66,8 +71,8 @@ export default function ProductForm({ setShowProductForm }) {
   }, []);
   async function getFoodCategory() {
     const data = await getRequest('/get-category')
-    setCategory(data?.data?.allCategories);
-    console.log(data?.data?.allCategories);
+    setCategory(data?.allCategories);
+    console.log(data?.allCategories);
     // return data?.data?.allCategories
   }
   console.log(loginData, "loginData in Sign in");
