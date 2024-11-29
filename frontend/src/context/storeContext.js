@@ -21,7 +21,7 @@ export const StoreContextProvider = (props) => {
     }, [])
     console.log('tokeeeeeeeen Outside', token)
 
-    const url = "https://food-delivery-b-mearnapp.vercel.app"
+    const url = "https://food-delivery-b-mearnapp.vercel.app/api"
 //   const url = "http://localhost:5001/api"
 
 
