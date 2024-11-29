@@ -6,7 +6,7 @@ import VerifyOrder from './verify/verify'
 import MyOrders from './myOrders/myOrders'
 import Menu from './OurMenu/OurMenu'
 import Order from './adminOrdersPage/order'
-import MyFaourites from './favouriteComp/favouriteComp'
+import MyFaourites from './userFavourite/userFavourite'
 export{
     Home,
     Cart,
