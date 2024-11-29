@@ -68,8 +68,8 @@ const updateFoodQuantity = async (req, res, next) => {
 
     try {
         console.log(req.body)
-        const { foodId, quantity ,price } = req.body;
-        await Food.findByIdAndUpdate(req.params.id, { quantity: quantity ,price})
+        const { foodId, quantity, price } = req.body;
+        await Food.findByIdAndUpdate(req.params.id, { quantity: quantity, price })
         res.json({
             success: true,
             message: `Update ${quantity ? 'Quantity' : 'Price'} successfully`
@@ -88,15 +88,15 @@ const updateFoodQuantity = async (req, res, next) => {
 const searchFood = async (req, res, next) => {
 
     try {
-        console.log(req.body,'SearchFood')
-        const {name,value } = req.body;
+        console.log(req.body, 'SearchFood')
+        const { name, value } = req.body;
         let result = await Food.find({
-            [name]:{$regex:value.toLowerCase()}
+            [name]: { $regex: value.toLowerCase() }
         })
-        console.log('res =====>',res)
+        console.log('res =====>', res)
         res.json({
             success: true,
-            data:result
+            data: result
             // message: `Update ${quantity ? 'Quantity' : 'Price'} successfully`
         })
 
@@ -238,13 +238,13 @@ const removeFromFavorites = async (req, res, next) => {
         const { productId } = req.body;
         const userJWT = req.user;
         const user = await User.findById(userJWT);
-        console.log(user,'user')
+        console.log(user, 'user')
         user.favourites = user.favourites.filter((fav) => !fav.equals(productId));
         await user.save();
 
         return res
             .status(200)
-            .json({ success:true ,message: "Product removed from favorites successfully", user });
+            .json({ success: true, message: "Product removed from favorites successfully", user });
     } catch (err) {
         next(err);
     }
@@ -254,16 +254,47 @@ const addToFavorites = async (req, res, next) => {
     try {
         const { productId } = req.body;
         const userJWT = req.user;
+
+        // calculate Rating
+        
         const user = await User.findById(userJWT);
 
         if (!user.favourites.includes(productId)) {
             user.favourites.push(productId);
             await user.save();
         }
+        let ratting = 0
+        let count = 0
+        const allUser = await User.find({}).populate('favourites');
+        // console.log('allUser', allUser)
+        let allIds = []
+        for (let i = 0; i < allUser.length; i++) {
+
+            console.log('allUser Name', (allUser.name))
+            // console.log('allUser', allUser)
+            // console.log('allUser', ((allUser[i])))
+            for (let j = 0; j < allUser[i].favourites.length; j++) {
+            // console.log('allUser', ((allUser[i].favourites[j]?._id)))
+                allIds.push((allUser[i].favourites[j]?._id).valueOf())
+            }
+            console.log(allIds,'allIds')
+            console.log(productId,'productId')
+
+                if (allIds.includes(productId)) {
+                    count = count + 1
+                    console.log('count', count)
+                }
+                ratting = count / allUser.length * 100
+                console.log('ratting', ratting)
+            
+
+
+        }
+            await Food.findByIdAndUpdate({ _id:productId }, { rating: ratting })
 
         return res
             .status(200)
-            .json({ success:true , message: "Product added to favorites successfully", user });
+            .json({ success: true, message: "Product added to favorites successfully", user });
     } catch (err) {
         next(err);
     }
@@ -272,7 +303,7 @@ const addToFavorites = async (req, res, next) => {
 const getUserFavorites = async (req, res, next) => {
     try {
         const userId = req.user;
-        console.log(req.user,'req.user Get')
+        // console.log(req.user, 'req.user Get')
         const user = await User.findById(userId).populate("favourites").exec();
         if (!user) {
             return next(createError(404, "User not found"));
