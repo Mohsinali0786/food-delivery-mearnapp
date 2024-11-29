@@ -13,7 +13,8 @@ import {
   VerifyOrder,
   MyOrders,
   Menu,
-  Order
+  Order,
+  MyFaourites
 } from './pages';
 import { useState } from 'react';
 const Container = styled.div``;
@@ -45,6 +46,7 @@ const url = "https://food-delivery-b-mearnapp.vercel.app/api"
             <Route path="/verify"  element={<VerifyOrder />} />
             <Route path="/myOrders"  element={<MyOrders />} />
             <Route path="/menu"  element={<Menu />} />
+            <Route path="/userFavourite"  element={<MyFaourites />} />
             <Route path="/adminOrder"  element={<Order  url={url}/>} /> 
 
 

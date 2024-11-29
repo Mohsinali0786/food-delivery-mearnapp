@@ -238,7 +238,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
           </form>
         </Navlink>
-        <Navlink to="/favourite">
+        <Navlink to="/userFavourite">
           <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
         </Navlink>
         <Navlink to="/cart-items" className="shopping-Cart">
