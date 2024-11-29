@@ -81,7 +81,7 @@ export const patchRequest = async (url,body,token) => {
     },
   };
   let fullUrl = baseUrl + url
-  const response = await axios.post(fullUrl,body,config)
+  const response = await axios.patch(fullUrl,body,config)
     .then(response => {
       console.log(response,'response');
 
