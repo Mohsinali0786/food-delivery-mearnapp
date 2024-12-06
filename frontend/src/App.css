@@ -123,15 +123,19 @@ margin: 0px !important;
   display: flex;
   gap: 10px;
 }
-.authBtnCss {
+.authBtnCss  {
   background-color: red !important;
-  color: whitesmoke !important;
   border-radius: 10px !important;
   font-weight: 500 !important;
 }
+.authBtnCss a{
+  color: whitesmoke !important;
+}
+.authBtnCss a:hover{
+  color: red !important;
+}
 .authBtnCss:hover {
   background-color: whitesmoke !important;
-  color: red !important;
 }
 
 .dataLoader{
