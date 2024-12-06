@@ -47,7 +47,7 @@ export default function LoginPopUp({ setShowLogin }) {
   };
   console.log(loginData, "loginData in Sign in");
   return (
-    <div className="login-popup">
+    <div className="login-popup" id='signUp'>
       <form
         action=""
         onSubmit={(e) => onLogin(e)}
