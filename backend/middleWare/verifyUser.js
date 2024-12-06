@@ -4,7 +4,7 @@ const jsonwebtoken = require('jsonwebtoken')
 
 const verifyToken = async (req, res, next) => {
   try {
-    const {token} =req.headers
+    const {Authorization} =req.headers
     console.log('req.headers.authorization',req.headers)
     // console.log('splittttttttttt',req.headers.authorization.split(" "))
     
