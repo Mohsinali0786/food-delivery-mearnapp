@@ -117,7 +117,7 @@ const FoodItem = ({
                 value={rating / 20}
                 readOnly
               />
-              <p>Rating ({rating.toFixed(2)})</p>
+              <p>Rating ({rating?.toFixed(2)})</p>
             </div>
           </div>
           <div>
