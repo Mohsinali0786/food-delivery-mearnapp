@@ -28,7 +28,7 @@ const placeOrder = async (req, res, next) => {
         console.log(items, 'items')
         const line_items = items.map((item) => ({
             price_data: {
-                currency: 'pkr',
+                currency: 'usd',
                 product_data: {
                     name: `Name : ${item.name}`,
                 },
@@ -38,7 +38,7 @@ const placeOrder = async (req, res, next) => {
         }))
         line_items.push({
             price_data: {
-                currency: "pkr",
+                currency: "usd",
                 product_data: {
                     name: "Delivery Charges"
                 },
