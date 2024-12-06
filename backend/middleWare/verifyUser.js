@@ -4,7 +4,7 @@ const jsonwebtoken = require('jsonwebtoken')
 
 const verifyToken = async (req, res, next) => {
   try {
-    const {Authorization} =req.headers
+    const {token} =req.headers
     console.log('req.headers.authorization',req.headers)
     // console.log('splittttttttttt',req.headers.authorization.split(" "))
     
@@ -14,10 +14,10 @@ const verifyToken = async (req, res, next) => {
     // const token = req.headers.authorization.split(" ")[1];
     // console.log('tokennnnnnnn',token)
     
-    if (!Authorization) return next(createError(401, "You are not authenticated!",res));
+    if (!token) return next(createError(401, "You are not authenticated!",res));
     // console.log('process.env.JWT',process.env.JWT)
     // const decode =  jsonwebtoken.verify(token, process.env.JWT);
-    const decode =  getUserIdFromToken(Authorization)
+    const decode =  getUserIdFromToken(token)
 
     // console.log('decode',decode)
 
