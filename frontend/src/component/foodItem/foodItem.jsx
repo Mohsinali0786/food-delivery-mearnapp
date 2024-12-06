@@ -46,11 +46,14 @@ const FoodItem = ({
       { productId: itemId },
       localStorage.getItem("token")
     );
-    if (res.success) {
+    if (res && res.success) {
       // getUserFavourite()
       toast.success(res.message);
       getUserFavourite();
       // setFavourite(true);
+    }
+    else{
+      toast.error(res.message);
     }
   };
   const getUserFavourite = async () => {
