@@ -1,37 +1,57 @@
 // Neer used Only sample 
 
 import axios from 'axios'
-// export const baseUrl = "http://localhost:5001/api";
-export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
+export const baseUrl = "http://localhost:5001/api";
+// export const baseUrl = "https://food-delivery-b-mearnapp.vercel.app/api";
 
-
-export const postRequest = async (url, body , token) => {
-  console.log(token,'token')
-  const response = await fetch(baseUrl+url, {
-    method: "POST",
+export const postRequest = async (url, body, token) => {
+  console.log(token, 'token')
+  // const response = await fetch(baseUrl+url, {
+  //   method: "POST",
+  //   headers: {
+  //     // 'Authorization': `Bearer ${token}`,
+  //     // 'token':token,
+  //     config,
+  //     "Content-Type": "application/json",
+  //   },
+  //   body:JSON.stringify(body),
+  // });
+  let fullUrl = baseUrl + url
+  const config = {
     headers: {
-      // 'Authorization': `Bearer ${token}`,
-      'token':token,
-      "Content-Type": "application/json",
-    },
-    body:JSON.stringify(body),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    let message;
-
-    if (data?.message) {
-      message = data.message;
-    } else {
-      message = data;
+      // Authorization: `Bearer ${token}`
+      token: token,
     }
+  };
 
-    return { error: true, status: response.status, message };
-  }
+  const response = await axios.post(fullUrl, body, config)
+    .then(response => {
+      console.log(response, 'response');
 
-  return data;
+      if (response.data)
+        return response.data;
+      // }
+    })
+    .catch(error => {
+      console.error('Error fetching data', error);
+      return error.response.data
+    });
+
+  // const data = await response.json();
+
+  // if (!response.ok) {
+  //   let message;
+
+  //   if (data?.message) {
+  //     message = data.message;
+  //   } else {
+  //     message = data;
+  //   }
+
+  //   return { error: true, status: response.status, message };
+  // }
+
+  return response;
 };
 // export const getRequest = async (url) => {
 //     const response = await fetch(url);
@@ -50,18 +70,18 @@ export const postRequest = async (url, body , token) => {
 
 //     return data;
 //   };
-export const getRequest = async (url,token) => {
+export const getRequest = async (url, token) => {
   let fullUrl = baseUrl + url
   let config = {
     headers: {
-      'token':token
+      'token': token
     }
   }
-  const response = await axios.get(fullUrl,config)
+  const response = await axios.get(fullUrl, config)
     .then(response => {
-      console.log(response,'get Request');
+      console.log(response, 'get Request');
 
-      if(response.data)
+      if (response.data)
         return response.data;
       // }
     })
@@ -69,23 +89,23 @@ export const getRequest = async (url,token) => {
       console.error('Error fetching data', error);
     });
 
-    return response;
+  return response;
 }
 
-export const patchRequest = async (url,body,token) => {
+export const patchRequest = async (url, body, token) => {
   const config = {
     headers: {
       // 'Authorization': `Bearer ${token}`,
-      'token':token,
+      'token': token,
       "Content-Type": "application/json",
     },
   };
   let fullUrl = baseUrl + url
-  const response = await axios.patch(fullUrl,body,config)
+  const response = await axios.patch(fullUrl, body, config)
     .then(response => {
-      console.log(response,'response');
+      console.log(response, 'response');
 
-      if(response.data)
+      if (response.data)
         return response.data;
       // }
     })
@@ -93,17 +113,17 @@ export const patchRequest = async (url,body,token) => {
       console.error('Error fetching data', error);
     });
 
-    return response;
+  return response;
 }
 
-export const deleteRequest = async (url,id) => {
+export const deleteRequest = async (url, id) => {
   let fullUrl = baseUrl + url
   // console.log(body,'id')
   const response = await axios.delete(fullUrl)
     .then(response => {
       console.log(response);
 
-      if(response.data)
+      if (response.data)
         return response.data;
       // }
     })
@@ -111,5 +131,5 @@ export const deleteRequest = async (url,id) => {
       console.error('Error in Deleting data', error);
     });
 
-    return response;
+  return response;
 }
