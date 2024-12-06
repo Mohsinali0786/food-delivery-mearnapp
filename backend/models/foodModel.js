@@ -75,6 +75,14 @@ const FoodSchema = new mongoose.Schema(
         category: {
             type: String,
         },
+        rating: {
+            type:Number,
+            default:0.0
+        },
+        likes: {
+            type:Number,
+            default:0.0
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
