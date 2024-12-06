@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link as LinkR, NavLink } from "react-router-dom";
+import { HashLink } from 'react-router-hash-link';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { useNavigate } from "react-router-dom";
@@ -255,7 +256,13 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
           {/* <Button className="authBtnCss" onClick={()=>setShowLogin(true)}>Sign In</Button> */}
           {
             !token ?
-              <Button className="authBtnCss" onClick={() =>setShowLogin(true)}>Sign Up</Button>
+              // <Button className="authBtnCss" onClick={() =>setShowLogin(true)}>Sign Up</Button>
+              <Button className="authBtnCss" onClick={() => setShowLogin(true)}>
+              <HashLink to="#signUp">
+                Sign Up
+              </HashLink>;
+            </Button>
+
               :
               <div className="navbar-profile">
                 {/* <img /> */}
