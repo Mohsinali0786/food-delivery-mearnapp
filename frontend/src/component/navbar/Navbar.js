@@ -252,6 +252,12 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
         <MobileIcon onClick={() => setIsOpen(!isOpen)}>
           <MenuRounded style={{ color: "inherit" }} />
         </MobileIcon>
+        {
+          loginInfo ?
+            <p>Welcome !! {loginInfo?.email}</p>
+            :
+            null
+        }
         <div className="ConatinerAuthBtn">
           {/* <Button className="authBtnCss" onClick={()=>setShowLogin(true)}>Sign In</Button> */}
           {
