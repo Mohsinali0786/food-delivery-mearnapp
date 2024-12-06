@@ -73,7 +73,7 @@ export const StoreContextProvider = (props) => {
     const getAllFoods = async (url) => {
         let items = await getRequest("/getAllItems")
         setAllItems(items?.allItems);
-        console.log(allItems, 'FooooooodListtttttt')
+        console.log(allItems, 'get All Items from storeContext')
 
     };
     const contextValue = {
@@ -90,7 +90,8 @@ export const StoreContextProvider = (props) => {
         token,
         url,
         setLoginData,
-        loginData
+        loginData,
+        getAllFoods
     }
     return (
         <StoreContext.Provider value={contextValue}>
