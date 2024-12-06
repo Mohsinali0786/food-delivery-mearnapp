@@ -35,70 +35,65 @@
   font-weight: 500;
   /* margin: 10px 0px; */
 }
-.item-price-margin{
-    margin: 22px 0px;
+.item-price-margin {
+  margin: 22px 0px;
 }
-.addItemsIcon{
-    color: white;
-    border-radius: 100%;
+.addItemsIcon {
+  color: white;
+  border-radius: 100%;
 }
-.food-item-image-container{
-    position: relative;
+.food-item-image-container {
+  position: relative;
 }
-.food-item-image-container .add{
-    width: 35px;
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 50%;
+.food-item-image-container .add {
+  width: 35px;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+  border-radius: 50%;
 }
-.food-item-counter{
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px;
-    background-color: white;
+.food-item-counter {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  background-color: white;
 }
-.discount{
+.discount {
   border-radius: 100%;
   background-color: red;
   padding: 5px;
   color: white;
 }
-.outOfStock{
+.outOfStock {
   font-size: 12px;
   color: tomato;
   text-align: right;
   font-weight: bold;
 }
-.categoryChipWrapper{
-display: flex;
-justify-content: space-between;
+.categoryChipWrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
-.categoryChipTitle{
-font-size: 13px;
-
+.categoryChipTitle {
+  font-size: 13px;
 }
-.categoryChipText{
+.categoryChipText {
   background-color: red;
   color: whitesmoke;
   padding: 5px;
   border-radius: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
+.ratingDiv{
+  display: flex;
+  flex-direction: column;
+}
+.ratingDiv p {
+  font-size: small;
+}

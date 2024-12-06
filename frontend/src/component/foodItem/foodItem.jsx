@@ -110,12 +110,15 @@ const FoodItem = ({
           <div className="food-item-name-rating">
             <p>{name.slice(0, 1).toUpperCase() + name.slice(1)}</p>
             {/* <img src="" alt="" /> */}
-            <Rating
-              size="small"
-              name="read-only"
-              value={rating / 20}
-              readOnly
-            />
+            <div className="ratingDiv">
+              <Rating
+                size="small"
+                name="read-only"
+                value={rating / 20}
+                readOnly
+              />
+              <p>Rating ({rating.toFixed(2)})</p>
+            </div>
           </div>
           <div>
             <div className="categoryChipWrapper">
@@ -126,7 +129,6 @@ const FoodItem = ({
                     {category?.slice(0, 1).toUpperCase() + category?.slice(1)}
                   </span>
                 </p>
-                <p>Rating{rating}</p>
               </div>
               {!favouriteList?.includes(id) ? (
                 <FavoriteBorder
