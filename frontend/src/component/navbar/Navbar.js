@@ -260,7 +260,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
               <Button className="authBtnCss" onClick={() => setShowLogin(true)}>
               <HashLink to="#signUp">
                 Sign Up
-              </HashLink>;
+              </HashLink>
             </Button>
 
               :
