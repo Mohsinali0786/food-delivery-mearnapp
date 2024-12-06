@@ -19,8 +19,8 @@ export const postRequest = async (url, body, token) => {
   let fullUrl = baseUrl + url
   const config = {
     headers: {
-      // Authorization: `Bearer ${token}`
-      token: token,
+      Authorization: `Bearer ${token}`
+      // token: token,
     }
   };
 
