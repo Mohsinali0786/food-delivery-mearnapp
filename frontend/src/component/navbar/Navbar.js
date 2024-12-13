@@ -204,7 +204,8 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
 
         {isOpen && (
           <MobileMenu isOpen={isOpen} className="mobileDropDown">
-            <Navlink to="/" onClick={() => setIsOpen(false)}>
+
+            {/* <Navlink to="/" onClick={() => setIsOpen(false)}>
               Home
             </Navlink>
             <Navlink to="/dishes" onClick={() => setIsOpen(false)}>
@@ -215,19 +216,32 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
             </Navlink>
             <Navlink to="/contact" onClick={() => setIsOpen(false)}>
               Contact
-            </Navlink>
-            {currentUser ? (
-              <>
-                <Button>
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <div className="mbAuthBtnCss">
-                {/* <Button className="authBtnCss" fullWidth >Sign In</Button> */}
-                <Button className="authBtnCss" onClick={() => {setShowLogin(true);setIsOpen(false)}} fullWidth>Sign Up</Button>
-              </div>
-            )}
+            </Navlink> */}
+            {
+              loginInfo ?
+                <>
+                  <p>Welcome !! {loginInfo?.email}</p>
+                  <p onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/"); getAllFoods() }}>
+                    {/* <Button > */}
+                    <div className="d-flex">
+                      <p className="text-white mr-2">Logout</p>
+                      <LogoutIcon className="text-white" />
+                    </div>
+
+                    {/* </Button> */}
+                  </p>
+                </>
+                :
+                (
+                  <Button className="authBtnCss" onClick={() => { setShowLogin(true); setIsOpen(!isOpen) }}>
+                    <HashLink to="#signUp">
+                      Sign Up
+                    </HashLink>
+                  </Button>
+
+                )
+
+            }
           </MobileMenu>
         )}
 
@@ -254,7 +268,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
         </MobileIcon>
         {
           loginInfo ?
-            <p>Welcome !! {loginInfo?.email}</p>
+            <p className="d-none">Welcome !! {loginInfo?.email}</p>
             :
             null
         }
@@ -264,10 +278,10 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
             !token ?
               // <Button className="authBtnCss" onClick={() =>setShowLogin(true)}>Sign Up</Button>
               <Button className="authBtnCss" onClick={() => setShowLogin(true)}>
-              <HashLink to="#signUp">
-                Sign Up
-              </HashLink>
-            </Button>
+                <HashLink to="#signUp">
+                  Sign Up
+                </HashLink>
+              </Button>
 
               :
               <div className="navbar-profile">
@@ -280,7 +294,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                     <Link to="/myOrders" className="text-black">Order</Link>
                   </li>
                   <hr />
-                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/");getAllFoods()}}>
+                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/"); getAllFoods() }}>
                     {/* <Button > */}
                     <LogoutIcon className="text-tomato" />
                     <p className="text-black">Logout</p>
@@ -288,6 +302,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                   </li>
                 </ul>
               </div>
+
 
           }
         </div>
