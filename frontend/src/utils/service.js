@@ -74,7 +74,7 @@ export const getRequest = async (url, token) => {
   let fullUrl = baseUrl + url
   let config = {
     headers: {
-      'token': token
+      Authorization: `Bearer ${token}`,
     }
   }
   const response = await axios.get(fullUrl, config)
@@ -95,9 +95,9 @@ export const getRequest = async (url, token) => {
 export const patchRequest = async (url, body, token) => {
   const config = {
     headers: {
-      // 'Authorization': `Bearer ${token}`,
-      'token': token,
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      // Content-Type: "application/json"
+      // 'token': token,
     },
   };
   let fullUrl = baseUrl + url
