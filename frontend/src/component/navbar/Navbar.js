@@ -160,7 +160,14 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   console.log(loginInfo, 'logiiiiiiiiiiii')
   const Navigate = useNavigate()
-
+const onLogOut = ()=>{
+  localStorage.removeItem("token")
+  localStorage.removeItem("loginInfo")
+  setToken('')
+  Navigate("/")
+  getAllFoods()
+  setIsOpen(!isOpen)
+}
   return (
     <Nav>
       <NavContainer>
@@ -221,14 +228,11 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
               loginInfo ?
                 <>
                   <p>Welcome !! {loginInfo?.email}</p>
-                  <p onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/"); getAllFoods() }}>
-                    {/* <Button > */}
+                  <p onClick={() => onLogOut()}>
                     <div className="d-flex">
                       <p className="text-white mr-2">Logout</p>
                       <LogoutIcon className="text-white" />
                     </div>
-
-                    {/* </Button> */}
                   </p>
                 </>
                 :
@@ -294,7 +298,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
                     <Link to="/myOrders" className="text-black">Order</Link>
                   </li>
                   <hr />
-                  <li onClick={() => { localStorage.removeItem("token"); localStorage.removeItem("loginInfo"); setToken(''); Navigate("/"); getAllFoods() }}>
+                  <li onClick={() => onLogOut()}>
                     {/* <Button > */}
                     <LogoutIcon className="text-tomato" />
                     <p className="text-black">Logout</p>
