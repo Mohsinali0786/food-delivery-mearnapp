@@ -9,6 +9,9 @@ margin: 0px !important;
 .p-0{
   padding: 0px !important;
   }
+.mr-2{
+  margin-right: 4px;
+}
 .d-flex{
   display: flex;
 }
