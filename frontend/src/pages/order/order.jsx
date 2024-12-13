@@ -48,8 +48,8 @@ export default function PlaceOrder() {
     // });
     let res = await postRequest("/placeOrder", orderData,token);
     console.log("res.data ====>", res);
-    if (res.data.success) {
-      const { session_url } = res.data;
+    if (res.success) {
+      const { session_url } = res;
       window.location.replace(session_url);
     }
   };
