@@ -35,7 +35,7 @@ export default function MyOrders() {
     if (token) {
       fetchOrders();
     }
-  }, [token , loading]);
+  }, [token]);
   return loading ? (
     <div className="maxHeight">
       <Spinner />
