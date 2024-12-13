@@ -5,6 +5,7 @@ import axios from "axios";
 // import img from "../../assets/food.jpg";
 import { Navigate, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/storeContext";
+import { postRequest } from "../../utils/service";
 export default function PlaceOrder() {
   const navigate =useNavigate()
   const { getCartTotalAmount, token, allItems, cartItems, url ,loginData } =
@@ -42,9 +43,10 @@ export default function PlaceOrder() {
       items: orderItems,
       amount: getCartTotalAmount() + 2,
     };
-    let res = await axios.post(url + "/placeOrder", orderData, {
-      headers: { token },
-    });
+    // let res = await axios.post(url + "/placeOrder", orderData, {
+    //   headers: { token },
+    // });
+    let res = await postRequest("/placeOrder", orderData,token);
     console.log("res.data ====>", res);
     if (res.data.success) {
       const { session_url } = res.data;
