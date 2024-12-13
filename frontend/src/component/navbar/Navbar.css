@@ -52,3 +52,11 @@
 .mobileDropDown a{
  color: white;
 }
+.loginText{
+    display: block;
+}
+@media (max-width:600px) {
+    .loginText{
+        display: none;
+    }
+}

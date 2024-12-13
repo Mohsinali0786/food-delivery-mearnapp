@@ -169,11 +169,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
     getAllFoods()
     setIsOpen(false)
   }
-  // useEffect(() => {
-  //   if(ref.current){
-  //     ref.current.className = "d-none"
-  //   }
-  // }, [loginInfo])
+
   return (
     <Nav>
       <NavContainer>
@@ -257,13 +253,12 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
 
       </NavContainer>
       <ButtonContainer>
-        <Navlink to="/search" >
+        {/* <Navlink to="/search" >
           <form className="d-flex d-none" >
             <input className="serachBox" placeholder="Search" aria-label="Search" />
-            {/* <button class="btn btn-outline-success" type="submit">Search</button> */}
             <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
           </form>
-        </Navlink>
+        </Navlink> */}
         <Navlink to="/userFavourite">
           <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
         </Navlink>
@@ -278,7 +273,7 @@ export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogi
         </MobileIcon>
         {
           loginInfo ?
-            <p className="d-flex" ref={ref}>Welcome !! {loginInfo?.email}</p>
+            <p className="loginText">Welcome !! {loginInfo?.email}</p>
             :
             null
         }
