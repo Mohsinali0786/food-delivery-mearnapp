@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getRequest } from "../utils/service";
+import { getRequest, patchRequest, postRequest } from "../utils/service";
 import axios from 'axios'
 export const StoreContext = createContext(null)
 
@@ -37,14 +37,17 @@ export const StoreContextProvider = (props) => {
         }
         console.log(token, 'token')
         if (token) {
-            await axios.post(url + "/cart", { productId: itemId }, { headers: { token } })
+            postRequest( "/cart", { productId: itemId },token )
+            // await axios.post(url + "/cart", { productId: itemId }, { headers: { token } })
         }
     }
 
     const removeFromCart = async (itemId) => {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }))
         if (token) {
-            await axios.patch(url + "/cart", { productId: itemId }, { headers: { token } })
+            // await axios.patch(url + "/cart", { productId: itemId }, { headers: { token } })
+            await patchRequest("/cart", { productId: itemId }, token)
+
         }
     }
     // useEffect(() => {
@@ -52,7 +55,9 @@ export const StoreContextProvider = (props) => {
     // }, [cartItems])
     const loadCartData = async (token) => {
         // console.log('tokeeeeeeeen', token)
-        const res = await axios.get(url + "/cart", { headers: { token } })
+        // const res = await axios.get(url + "/cart", { headers: { token } })
+        const res = await getRequest("/cart",token )
+
         console.log(res.data, 'res.data')
         setCartItems(res.data)
     }
