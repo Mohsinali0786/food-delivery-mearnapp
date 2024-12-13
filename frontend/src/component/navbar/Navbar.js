@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link as LinkR, NavLink } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link';
@@ -157,17 +157,23 @@ const TextButton = styled.span`
 export default function Navbar({ setOpenAuth, openAuth, currentUser, setShowLogin }) {
   const [isOpen, setIsOpen] = useState(false);
   const { getCartTotalAmount, token, setToken, loginData } = useContext(StoreContext)
+  const ref = useRef(null)
   const loginInfo = JSON.parse(localStorage.getItem('loginInfo'))
   console.log(loginInfo, 'logiiiiiiiiiiii')
   const Navigate = useNavigate()
-const onLogOut = ()=>{
-  localStorage.removeItem("token")
-  localStorage.removeItem("loginInfo")
-  setToken('')
-  Navigate("/")
-  getAllFoods()
-  setIsOpen(false)
-}
+  const onLogOut = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("loginInfo")
+    setToken('')
+    Navigate("/")
+    getAllFoods()
+    setIsOpen(false)
+  }
+  // useEffect(() => {
+  //   if(ref.current){
+  //     ref.current.className = "d-none"
+  //   }
+  // }, [loginInfo])
   return (
     <Nav>
       <NavContainer>
@@ -272,7 +278,7 @@ const onLogOut = ()=>{
         </MobileIcon>
         {
           loginInfo ?
-            <p className="d-none">Welcome !! {loginInfo?.email}</p>
+            <p className="d-flex" ref={ref}>Welcome !! {loginInfo?.email}</p>
             :
             null
         }

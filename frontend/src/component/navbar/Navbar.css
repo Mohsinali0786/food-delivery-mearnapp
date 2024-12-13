@@ -1,3 +1,6 @@
+.d-flex{
+    display: flex;
+}
 .shopping-Cart{
     position: relative;
 }
