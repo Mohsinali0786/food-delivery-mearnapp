@@ -8,6 +8,7 @@ import Spinner from "../../component/spinner/spinner";
 import noData from "../../assets/noData.png";
 import "./myOrder.css";
 import axios from "axios";
+import { postRequest } from "../../utils/service";
 export default function MyOrders() {
   const { token, url, loginData } = useContext(StoreContext);
   const [data, setData] = useState([]);
@@ -16,10 +17,15 @@ export default function MyOrders() {
     setLoading(true);
     const loginData = JSON.parse(localStorage.getItem("loginInfo"));
     console.log("loginData", loginData);
-    const response = await axios.post(
-      url + "/userOrders",
+    // const response = await axios.post(
+    //   url + "/userOrders",
+    //   { userId: loginData._id },
+    //   { headers: { token } }
+    // );
+    const response = await postRequest(
+      "/userOrders",
       { userId: loginData._id },
-      { headers: { token } }
+      token
     );
     setData(response.data.data);
     setLoading(false);
@@ -37,7 +43,7 @@ export default function MyOrders() {
   ) : (
     <div className="my-orders">
       <h2>My Orders</h2>
-      {data.length > 0 ? (
+      {data && data.length > 0 ? (
         <div className="container">
           {data.map((order, index) => {
             return (

@@ -93,6 +93,7 @@ const FoodItem = ({
           cartItems && !cartItems[id] ? (
             <AddIcon onClick={() => addToCart(id)} className="add" />
           ) : (
+            cartItems &&
             <div className="food-item-counter">
               <RemoveCircleOutline
                 onClick={() => addToCart(id, quantity)}
@@ -118,6 +119,7 @@ const FoodItem = ({
                 size="small"
                 name="read-only"
                 value={rating / 20}
+                precision={0.5}
                 readOnly
               />
               <p>Rating ({rating?.toFixed(2)})</p>
