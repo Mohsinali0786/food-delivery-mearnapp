@@ -166,7 +166,7 @@ const onLogOut = ()=>{
   setToken('')
   Navigate("/")
   getAllFoods()
-  setIsOpen(!isOpen)
+  setIsOpen(false)
 }
   return (
     <Nav>

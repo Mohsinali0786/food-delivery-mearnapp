@@ -64,7 +64,13 @@ margin: 0px !important;
 .fs-11{
   font-size: 11px;
 }
-
+.maxHeight{
+  height: calc(100vh - 350px);
+  /* padding: 20px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .NavBar{
   /* background-color: grey; */
 }
