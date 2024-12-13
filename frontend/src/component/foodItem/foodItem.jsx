@@ -30,16 +30,21 @@ const FoodItem = ({
     useContext(StoreContext);
   useEffect(() => {
     console.log("useEffect favvvvvv", favourite);
-    const loginInfo = localStorage.getItem("loginInfo");
-    if (JSON.parse(loginInfo)?._id) {
-      getUserFavourite();
+    const loginInfo = JSON.parse(localStorage.getItem("loginInfo"));
+    if(loginInfo && loginInfo?._id){
+      // if (JSON.parse(loginInfo)?._id) {
+        getUserFavourite();
+      // }
     }
-  }, [favourite, allItems]);
-  useEffect(() => {
-    if (!localStorage.getItem("loginInfo")) {
+    else{
+
       setFavouriteList([]);
     }
-  }, [localStorage.getItem("loginInfo")]);
+  }, [favourite,allItems ,localStorage.getItem("loginInfo")]);
+  // useEffect(() => {
+  //   if (!localStorage.getItem("loginInfo")) {
+  //   }
+  // }, [localStorage.getItem("loginInfo")]);
   const addToFavourite = async (itemId) => {
     let res = await postRequest(
       "/favorite",
