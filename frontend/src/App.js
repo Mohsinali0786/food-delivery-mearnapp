@@ -3,6 +3,7 @@ import { lightTheme } from "./utils/Theme";
 import styled, { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Navbar,LoginPopUp, FoodDisplay, Footer} from "./component";
+import { VerifyEmail } from './pages/verifyUserScreen/verifyUser';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
@@ -48,6 +49,7 @@ const url = "https://food-delivery-b-mearnapp.vercel.app/api"
             <Route path="/menu"  element={<Menu />} />
             <Route path="/userFavourite"  element={<MyFaourites />} />
             <Route path="/adminOrder"  element={<Order  url={url}/>} /> 
+            <Route path="/verify-email" element={<VerifyEmail/>} />
 
 
 
