@@ -13,8 +13,10 @@ export default function FoodDisplay({ category }) {
   console.log(allItems, "allItems");
   const onSearch = async (val) => {
     let res = await postRequest("/searchBy", searchParams);
-    console.log(res, "Search By");
-    setAllItems(res.data);
+    if(res){
+      console.log(res, "Search By");
+      setAllItems(res.data);
+    }
   };
   useEffect(() => {
     console.log("useEffect");
