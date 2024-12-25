@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const { createError } = require('../error')
+const {sendVerificationEmail} = require("../utils/sendVerificationEmail")
 const { generateToken, getUserIdFromToken } = require('../config/jwtToken')
 const Signup = async (req, res, next) => {
   console.log('req.body',req.body)
@@ -29,8 +30,14 @@ const Signup = async (req, res, next) => {
       img,
     });
     const createdUser = await user.save();
-    console.log('createdUser', createdUser)
+    // const createdUser = ''
+    // console.log('createdUser', createdUser)
     let token = generateToken(user._id)
+    let resss = await sendVerificationEmail(user,token)
+    console.log(resss,'res from email')
+    // if(resss){
+    // createdUser = await user.save();
+    // }
     return res.status(201).json({success:true , token, user ,message:'Sign Up Successfully'});
   } catch (err) {
     res.json({success:false ,message:"Error"})
@@ -41,14 +48,17 @@ const Signup = async (req, res, next) => {
 const UserLogin = async (req, res, next) => {
   try {
     const { email, password, token } = req.body;
-
     //Check for existing user
     const user = await User.findOne({ email: email }).exec();
+    console.log('userrrrrrr',user)
     if (!user) {
       // return next(createError(409, "User not found.", res));
       return res.json({success:false , message:"User not found."});
     }
-
+    if (user && !user?.isVerified) {
+      // return next(createError(409, "User not found.", res));
+      return res.json({success:false , message:"User not verified."});
+    }
     const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
     if (!isPasswordCorrect) {
       // return next(createError(403, "Incorrect password", res));
@@ -119,9 +129,44 @@ const getAllUser = async (req, res, next) => {
 };
 
 
+const verifyUser = async (req, res) => {
+  // console.log('req.body===>', req.body.userId)
 
+  try {
+      const userId = req.body.userId
+      if (!userId) return res.status(404).json("Email Token not found")
+      let user = await User.findById(userId)
+
+      console.log(user, 'Before Userr')
+      if (user) {
+          user.isVerified = true
+          // user.emailToken = null
+          await user.save()
+          console.log(user, 'After Userr')
+          const token = generateToken(user._id)
+          res.status(200).json({
+              success:true,
+              message:"Email Verified",
+              user:{
+                  _id: user._id,
+                  name: user.name,
+                  email: user.email,
+                  token,
+                  isVerified: user?.isVerified
+              }
+          })
+      }
+      else {
+         res.status(404).json("Email Verification Failed Invalid Token")
+      }
+  }
+  catch (err) {
+      console.log('Err', err)
+     res.status(500).json(err.message)
+  }
+}
 
 
 //Cart
 
-module.exports = { Signup, UserLogin, getAllUser, UserUpdate, UserDelete }
+module.exports = { Signup, UserLogin, getAllUser, UserUpdate, UserDelete , verifyUser }
