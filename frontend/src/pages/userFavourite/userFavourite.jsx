@@ -49,6 +49,7 @@ export default function MyFaourites() {
                   image={item?.image?.url}
                   price={item?.price}
                   category={item?.category}
+                  rating={items?.rating}
                 />
               );
               //   }
