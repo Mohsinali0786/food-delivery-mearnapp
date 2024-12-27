@@ -55,7 +55,7 @@ export default function MyFaourites() {
             })}
         </div>
       ) : (
-        <h3 style={{ textAlign: "center" }}>No Favourite Found against</h3>
+        <h3 style={{ textAlign: "center" }}>No Favourite Found</h3>
       )}
     </div>
   );
