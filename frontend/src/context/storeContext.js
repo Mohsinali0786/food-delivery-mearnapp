@@ -59,7 +59,7 @@ export const StoreContextProvider = (props) => {
         const res = await getRequest("/cart",token )
 
         console.log(res.data, 'res.data')
-        setCartItems(res.data)
+        if(res.data) setCartItems(res.data)
     }
     const getCartTotalAmount = () => {
         let totalAmount = 0
