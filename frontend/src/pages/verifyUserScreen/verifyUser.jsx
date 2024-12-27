@@ -30,7 +30,7 @@ export const VerifyEmail = () => {
   const verifyingEmail = async () => {
     if (!user?.isVerified) {
       const response = await fetch(
-        "https://food-delivery-f-mearnapp.vercel.app/api/verify-email",
+        "https://food-delivery-b-mearnapp.vercel.app/api/verify-email",
         // "http://localhost:5001/api/verify-email",
         {
           method: "POST",
