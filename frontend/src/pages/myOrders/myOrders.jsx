@@ -27,9 +27,9 @@ export default function MyOrders() {
       { userId: loginData._id },
       token
     );
-    setData(response.data.data);
+    setData(response.data);
     setLoading(false);
-    console.log(response.data.data, "data...........");
+    console.log(response.data, "data...........");
   };
   useEffect(() => {
     if (token) {
