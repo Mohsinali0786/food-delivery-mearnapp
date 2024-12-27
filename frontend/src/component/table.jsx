@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import BasicSelect from "./select";
 import { Button } from "@mui/material";
-import { deleteRequest, patchRequest } from "../utils/service";
+import { deleteRequest, patchRequest, postRequest } from "../utils/service";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Avatar from "@mui/material/Avatar";
@@ -221,7 +221,8 @@ export const EditData = ({
   React.useEffect(() => {});
   const updateUser = async () => {
     const { email ,_id} = userSelected;
-    const res = await patchRequest("/updateUser", { role: role, email: email , userId:_id});
+    const token = localStorage.getItem("token")
+    const res = await postRequest("/updateUser", { role: role, email: email , userId:_id},token);
     if (res.success) {
       console.log("res Ifff", userSelected);
       userSelected.role = role;
