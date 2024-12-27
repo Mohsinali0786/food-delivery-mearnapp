@@ -34,7 +34,7 @@ export const postRequest = async (url, body, token) => {
     })
     .catch(error => {
       console.error('Error fetching data', error);
-      return error.response.data
+      return error.message
     });
 
   // const data = await response.json();
@@ -87,6 +87,7 @@ export const getRequest = async (url, token) => {
     })
     .catch(error => {
       console.error('Error fetching data', error);
+      return error.message
     });
 
   return response;
@@ -111,6 +112,7 @@ export const patchRequest = async (url, body, token) => {
     })
     .catch(error => {
       console.error('Error fetching data', error);
+      return error.message
     });
 
   return response;
