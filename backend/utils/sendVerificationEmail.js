@@ -3,8 +3,8 @@ const  { emailTransporter }  = require("./createMailTransport");
 
 const sendVerificationEmail = (user,emailToken) =>{
     const transporter =emailTransporter()
-    const verificationUrl = `http://localhost:5174/verify-email/?userId=${user?.id}`;
-    // let  verificationUrl = `http://mm-traders-app-frontend.vercel.app/verify-email?emailToken=${user.emailToken}`;
+    // const verificationUrl = `http://localhost:5174/verify-email/?userId=${user?.id}`;
+    let  verificationUrl = `https://food-delivery-b-mearnapp.vercel.app/verify-email?userId=${user?.id}}`;
     console.log(verificationUrl, 'verificationUrl')
             console.log(verificationUrl,'verificationUrl')
             const mailOptions = {
