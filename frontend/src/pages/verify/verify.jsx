@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import "./verify.css";
 import axios from "axios";
+import { Spinner } from "../../component/index";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/storeContext";
 export default function VerifyOrder() {
@@ -24,7 +25,7 @@ export default function VerifyOrder() {
   },[])
   return (
     <div className="verify">
-      {/* <div className="spinner"></div> */}
+      <Spinner/>
     </div>
   );
 }
