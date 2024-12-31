@@ -50,7 +50,7 @@ export default function PlaceOrder() {
     console.log("res.data ====>", res);
     if (res.success) {
       const { session_url } = res;
-      // window.location.replace(session_url);
+      window.location.replace(session_url);
     }
   };
   useEffect(() => {
