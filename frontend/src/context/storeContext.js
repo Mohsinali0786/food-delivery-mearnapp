@@ -67,7 +67,7 @@ export const StoreContextProvider = (props) => {
             console.log(item, 'itemmmm')
             if (cartItems[item] > 0) {
                 console.log('cartItems[item]', cartItems[item])
-                let itemInfo = allItems.find((x, i) => x._id == item)
+                let itemInfo = allItems?.find((x, i) => x._id == item)
                 console.log('itemInfo', itemInfo)
                 totalAmount += itemInfo.price?.mrp * cartItems[item]
             }
