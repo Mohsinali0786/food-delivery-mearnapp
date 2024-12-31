@@ -33,18 +33,49 @@ export default function Order({ url }) {
     }
   };
   const statusHandler = async (e, orderId) => {
-    const res = await axios.post(`${url}/updateStatus`,{
-        orderId,
-        status:e.target.value
+    const res = await axios.post(`${url}/updateStatus`, {
+      orderId,
+      status: e.target.value,
     });
     if (res.data.success) {
-        await fetchOrderList()
+      await fetchOrderList();
     }
   };
   const [orders, setOrder] = useState([]);
+  // const [delivered, setDelivered] = useState(0);
+  // const [foodProcessing, setFoodProcessing] = useState(0);
+  let delivered = 0;
+  let foodProcessing = 0;
+  let outForDelivery = 0;
+  const calculateFoodStatus = () => {
+    console.log("DeliveredDeliveredDeliveredDelivered");
+    orders.map((item, index) => {
+      if (item?.status == "Delivered") {
+        return (delivered = delivered + 1);
+      } else if (item?.status == "Food Processing") {
+        return (foodProcessing = foodProcessing + 1);
+      }
+      else if (item?.status == "Out For Delivery") {
+        return (outForDelivery = outForDelivery + 1);
+      }
+
+      // setDelivered(count)
+    });
+  };
+  calculateFoodStatus();
+
   return (
     <div className="order add">
       <h3>Order Page</h3>
+      <div className="totalOrderDiv">
+        <div className="totalOrders">
+          <p> Delivered {delivered}</p>
+          <p>In-Processing {foodProcessing}</p>
+          <p>Out For Delivery {outForDelivery}</p>
+
+          <p>Total Orders {orders.length}</p>
+        </div>
+      </div>
       <div className="order-list">
         {orders?.map((order, index) => (
           <div key={index} className="order-item">

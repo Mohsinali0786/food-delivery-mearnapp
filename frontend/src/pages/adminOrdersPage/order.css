@@ -1,59 +1,94 @@
-.order{
-padding: 20px;
-margin: 10px;
+.order {
+  padding: 20px;
+  margin: 10px;
 }
 
-.order img{
-    width: 50px;
+.order img {
+  width: 50px;
 }
 
-.order-item{
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
-    align-items: start;
-    gap: 30px;
-    border: 1px solid tomato;
-    padding: 20px;
-    margin: 30px 0px;
-    font-size: 14px;
-    color: #505050;
+.order-item {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+  align-items: start;
+  gap: 30px;
+  border: 1px solid tomato;
+  padding: 20px;
+  margin: 30px 0px;
+  font-size: 14px;
+  color: #505050;
 }
-.order-item-food , .order-item-name{
-    font-weight: 600;
+.order-item-food,
+.order-item-name {
+  font-weight: 600;
 }
-.order-item-name{
-    margin-top: 30px;
-    margin-bottom: 5px;
+.order-item-name {
+  margin-top: 30px;
+  margin-bottom: 5px;
 }
-.order-item-address{
-    margin-bottom: 10px;
+.order-item-address {
+  margin-bottom: 10px;
 }
-.order-item select{
-background-color: #ffe8e4;
-border: 1px solid tomato;
-width: max(10vw ,120px);
-padding: 10px;
-outline: none;
+.order-item select {
+  background-color: #ffe8e4;
+  border: 1px solid tomato;
+  width: max(10vw, 120px);
+  padding: 10px;
+  outline: none;
+}
+.order {
+  height: calc(100vh - 360px);
+  display: flex;
+  flex-direction: column;
+}
+.order-list {
+  overflow-y: scroll;
+}
+.order-list::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #4aa302; /* or add it to the track */
 }
 
+/* Add a thumb */
+.order-list::-webkit-scrollbar-thumb {
+  background: #ee6262;
+}
+.totalOrderDiv {
+  display: flex;
+  justify-content: end;
+}
+.totalOrders {
+  text-align: right;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
 @media screen and (max-width: 1000px) {
-    .order-item{
-        font-size: 12px;
-        display: grid;
-        grid-template-columns: 0.5fr 2fr 1fr;
-        padding: 15px 8px;
-    }
-    .order-item select{
-        padding: 5px;
-        font-size: 12px;
-    }
-    .order img{
-        width: 40px;
-    }
+  .order-item {
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr;
+    padding: 15px 8px;
+  }
+  .order-item select {
+    padding: 5px;
+    font-size: 12px;
+  }
+  .order img {
+    width: 40px;
+  }
+  .totalOrders {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+  }
+  .totalOrders p:nth-child(4) {
+    border-top: 2px solid #4aa302;
+  }
 }
-
-
-
-
-
-
