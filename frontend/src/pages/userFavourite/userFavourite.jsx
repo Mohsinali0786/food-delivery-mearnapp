@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import noData from "../../assets/noData.png";
 import "./userFavourite.css";
 import axios from "axios";
+// import noData from "../../assets/noData.png"
 import { FoodItem, Spinner } from "../../component";
 import { getRequest } from "../../utils/service";
 export default function MyFaourites() {
@@ -56,7 +57,10 @@ export default function MyFaourites() {
             })}
         </div>
       ) : (
-        <h3 style={{ textAlign: "center" }}>No Favourite Found</h3>
+        // <h3 style={{ textAlign: "center" }}>No Favourite Found</h3>
+        <div className="noDataImage">
+        <img src={noData} />
+      </div>
       )}
     </div>
   );

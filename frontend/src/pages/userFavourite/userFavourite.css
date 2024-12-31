@@ -1,5 +1,14 @@
 .my-orders{
-    height: calc(100vh - 400px);
+    height: calc(100vh - 360px);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.noDataImage{
+    display: flex;
+    justify-content: center;
+    margin: 50px 0px;
+}
+.noDataImage img{
+    width: 300px;
 }
